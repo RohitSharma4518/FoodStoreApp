@@ -20,8 +20,6 @@ class ResetpswdView extends StatefulWidget {
 class _ResetpswdViewState extends State<ResetpswdView> {
   bool passwordVisible = true;
   bool passwordVisible2 = true;
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +101,6 @@ class _ResetpswdViewState extends State<ResetpswdView> {
                 height: 0.9.h,
               ),
               CustomPasswordTextField(
-                controller: _password,
                 hint: "Confirm Password",
                 secureText: passwordVisible,
                 suffixIcon: IconButton(
@@ -116,7 +113,6 @@ class _ResetpswdViewState extends State<ResetpswdView> {
                       ? Icons.visibility_off_outlined
                       : Icons.remove_red_eye_outlined),
                 ),
-                // validator: Validator.validatePassword,
               ),
               SizedBox(
                 height: 28.h,
