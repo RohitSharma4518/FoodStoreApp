@@ -1,6 +1,5 @@
 import 'package:foodstore/Modules/Cart/cart_controller.dart';
 import 'package:foodstore/Modules/Signup/signup_controller.dart';
-import 'package:foodstore/Modules/Signup/signup_repository.dart';
 import 'package:get/get.dart';
 import '../Data/Api/api_manager.dart';
 import '../Modules/Login/login_controller.dart';
@@ -21,16 +20,16 @@ class GlobalControllerBindings extends Bindings {
     //     ),
     //   ),
     // );
-    Get.put(SignupController());
+    // Get.put(SignupController());
     // Get.put(SignupRepository());
     Get.put(CartController());
     // login controller initialisation
     Get.put(
       LoginController(
-        LoginRepository(
-          ApiManager(),
-        ),
-      ),
+          // LoginRepository(
+          //   ApiManager(),
+          // ),
+          ),
     );
 
     // login controller initialisation

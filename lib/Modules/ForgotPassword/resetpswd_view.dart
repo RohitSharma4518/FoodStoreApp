@@ -87,9 +87,9 @@ class _ResetpswdViewState extends State<ResetpswdView> {
               SizedBox(
                 height: 0.9.h,
               ),
-              const CustomTextField(
-                hint: 'New Password',
-              ),
+              // const CustomTextField(
+              //   hint: 'New Password',
+              // ),
               SizedBox(
                 height: 2.8.h,
               ),

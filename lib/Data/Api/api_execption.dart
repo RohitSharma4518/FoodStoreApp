@@ -3,7 +3,7 @@
 ///
 class AppException implements Exception {
   final String message;
-  final prefix;
+  final String? prefix;
 
   AppException([this.message = 'An Unknown Error Occured.', this.prefix]);
 

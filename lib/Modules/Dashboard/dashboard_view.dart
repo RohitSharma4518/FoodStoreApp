@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:foodstore/Modules/Dashboard/Model/dashboard_data_model.dart';
+import 'package:foodstore/Modules/Dashboard/dashboard_controller.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
@@ -19,6 +21,7 @@ class DashboardView extends StatefulWidget {
 
 class _DashboardViewState extends State<DashboardView> {
   String dropdownValue = 'Your Location';
+  final HomeController controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,115 +175,154 @@ class _DashboardViewState extends State<DashboardView> {
             ),
           ),
           Expanded(
-            child: DefaultTabController(
-              length: 4,
-              child: Container(
-                margin: EdgeInsets.only(left: 5.8.w, right: 5.8.w),
-                child: Column(
-                  children: [
-                    TabBar(
-                      tabAlignment: TabAlignment.fill,
-                      splashFactory: NoSplash.splashFactory,
-                      indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: ColorConstants.primaryColor,
-                      ),
-                      indicatorPadding:
-                          const EdgeInsets.only(left: 12, right: 12),
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      unselectedLabelStyle: const TextStyle(
-                          color: ColorConstants.dividerColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500),
-                      labelStyle: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: ColorConstants.whiteColor),
-                      dividerColor: Colors.transparent,
-                      tabs: [
-                        SizedBox(
-                          height: 65,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                AssetConstant.burgerImg,
-                              ),
-                              const SizedBox(
-                                height: 5.5,
-                              ),
-                              const CustomTextWidget(
-                                StringConstants.dashboardCategory1,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ],
+            child: Obx(
+              () {
+                if (controller.tabBarItems.isEmpty) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return DefaultTabController(
+                  length: 4,
+                  child: Container(
+                    margin: EdgeInsets.only(left: 5.8.w, right: 5.8.w),
+                    child: Column(
+                      children: [
+                        TabBar(
+                          tabAlignment: TabAlignment.fill,
+                          splashFactory: NoSplash.splashFactory,
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: ColorConstants.primaryColor,
                           ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              AssetConstant.tacoImg,
-                            ),
-                            const SizedBox(
-                              height: 5.5,
-                            ),
-                            const CustomTextWidget(
-                              StringConstants.dashboardCategory2,
-                              fontSize: 10,
+                          indicatorPadding:
+                              const EdgeInsets.only(left: 12, right: 12),
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          unselectedLabelStyle: const TextStyle(
+                              color: ColorConstants.dividerColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                          labelStyle: const TextStyle(
+                              fontSize: 14,
                               fontWeight: FontWeight.w500,
-                            ),
-                          ],
+                              color: ColorConstants.whiteColor),
+                          dividerColor: Colors.transparent,
+                          tabs: controller.tabBarItems.map((item) {
+                            return SizedBox(
+                              height: 65,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.network(
+                                    item.img,
+                                  ),
+                                  const SizedBox(
+                                    height: 5.5,
+                                  ),
+                                  CustomTextWidget(
+                                    // StringConstants.dashboardCategory1,
+                                    item.title,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                          // tabs: [
+                          //   SizedBox(
+                          //     height: 65,
+                          //     child: Column(
+                          //       mainAxisAlignment: MainAxisAlignment.center,
+                          //       children: [
+                          //         Image.asset(
+                          //           AssetConstant.burgerImg,
+                          //         ),
+                          //         const SizedBox(
+                          //           height: 5.5,
+                          //         ),
+                          //         const CustomTextWidget(
+                          //           StringConstants.dashboardCategory1,
+                          //           fontSize: 10,
+                          //           fontWeight: FontWeight.w500,
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          //   Column(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       Image.asset(
+                          //         AssetConstant.tacoImg,
+                          //       ),
+                          //       const SizedBox(
+                          //         height: 5.5,
+                          //       ),
+                          //       const CustomTextWidget(
+                          //         StringConstants.dashboardCategory2,
+                          //         fontSize: 10,
+                          //         fontWeight: FontWeight.w500,
+                          //       ),
+                          //     ],
+                          //   ),
+                          //   Column(
+                          //     children: [
+                          //       Image.asset(
+                          //         AssetConstant.drinkImg,
+                          //       ),
+                          //       const SizedBox(
+                          //         height: 5.5,
+                          //       ),
+                          //       const CustomTextWidget(
+                          //         StringConstants.dashboardCategory3,
+                          //         fontSize: 10,
+                          //         fontWeight: FontWeight.w500,
+                          //       ),
+                          //     ],
+                          //   ),
+                          //   Column(
+                          //     children: [
+                          //       Image.asset(
+                          //         AssetConstant.pizzaImg,
+                          //       ),
+                          //       const SizedBox(
+                          //         height: 5.5,
+                          //       ),
+                          //       const CustomTextWidget(
+                          //         StringConstants.dashboardCategory4,
+                          //         fontSize: 10,
+                          //         fontWeight: FontWeight.w500,
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ],
                         ),
-                        Column(
-                          children: [
-                            Image.asset(
-                              AssetConstant.drinkImg,
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 16, bottom: 16),
+                            child: TabBarView(
+                              children: [
+                                Center(
+                                    child: listFoodItems(
+                                        controller.foodItemsBurger)),
+                                Center(
+                                    child: listFoodItems(
+                                        controller.foodItemsTaco)),
+                                Center(
+                                    child: listFoodItems(
+                                        controller.foodItemsPizza)),
+                                Center(
+                                    child: listFoodItems(
+                                        controller.foodItemsDrink)),
+                              ],
                             ),
-                            const SizedBox(
-                              height: 5.5,
-                            ),
-                            const CustomTextWidget(
-                              StringConstants.dashboardCategory3,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Image.asset(
-                              AssetConstant.pizzaImg,
-                            ),
-                            const SizedBox(
-                              height: 5.5,
-                            ),
-                            const CustomTextWidget(
-                              StringConstants.dashboardCategory4,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ],
+                          ),
                         ),
                       ],
                     ),
-                    Expanded(
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 16, bottom: 16),
-                        child: TabBarView(
-                          children: [
-                            Center(child: content()),
-                            Center(child: content()),
-                            Center(child: content()),
-                            Center(child: content()),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -289,115 +331,130 @@ class _DashboardViewState extends State<DashboardView> {
   }
 }
 
-Widget content() {
-  return GridView.builder(
-    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      mainAxisSpacing: 1.8.h,
-      crossAxisSpacing: 5.w,
-      childAspectRatio: 0.78,
-    ),
-    itemCount: items.length,
-    itemBuilder: (context, index) {
-      final item = items[index];
-      return GestureDetector(
-        onTap: () {
-          Get.toNamed(AppRoutes.menuDetailScreen);
-        },
-        child: Container(
-          padding: const EdgeInsetsDirectional.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: ColorConstants.whiteColor,
+Widget listFoodItems(List<FoodItem> foodItems) {
+  // final AboutController aboutController = Get.put(AboutController());
+
+  return Obx(
+    () {
+      if (foodItems.isEmpty) {
+        return const Center(
+          child: Text(
+            "No Items Available",
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Image(
-                    fit: BoxFit.contain,
-                    width: double.infinity,
-                    image: AssetImage(
-                      item['photo']!,
-                    ),
-                  ),
-                  Container(
-                    width: 7.2.w,
-                    height: 3.4.h,
-                    margin: const EdgeInsets.only(right: 8, top: 8),
-                    decoration: BoxDecoration(
-                      color: ColorConstants.whiteColor,
-                      border: Border.all(width: 0),
-                      shape: BoxShape.circle,
-                    ),
-                    child: IconButton(
-                      padding: const EdgeInsets.all(0.1),
-                      iconSize: 20,
-                      icon: const Icon(
-                        Icons.favorite_outline_outlined,
-                        color: ColorConstants.addFavouriteColor,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 0.9.h,
-              ),
-              CustomTextWidget(
-                item['title']!,
-                fontSize: 11.5,
-                fontWeight: FontWeight.w500,
-                color: ColorConstants.blackColor,
-              ),
-              Row(
-                children: [
-                  const Icon(Icons.star,
-                      color: ColorConstants.primaryColor, size: 16),
-                  SizedBox(
-                    width: 1.1.w,
-                  ),
-                  CustomTextWidget(
-                    item['rating']!,
-                    fontSize: 10.2,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  SizedBox(
-                    width: 12.w,
-                  ),
-                  const Icon(
-                    Icons.location_on_outlined,
-                    size: 16,
-                    color: ColorConstants.primaryColor,
-                  ),
-                  CustomTextWidget(
-                    item['distance']!,
-                    fontSize: 10.2,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 0.6.h,
-              ),
-              Row(
-                children: [
-                  Text(
-                    item['price']!,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: ColorConstants.primaryColor,
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
+        );
+      }
+
+      return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 1.8.h,
+          crossAxisSpacing: 5.w,
+          childAspectRatio: 0.78,
         ),
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          final item = foodItems[index];
+          return GestureDetector(
+            onTap: () {
+              // aboutController.setSelectedFoodItem(item);
+              Get.toNamed(AppRoutes.menuDetailScreen);
+            },
+            child: Container(
+              padding: const EdgeInsetsDirectional.all(8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: ColorConstants.whiteColor,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      Image(
+                        height: 106,
+                        fit: BoxFit.contain,
+                        width: double.infinity,
+                        image: NetworkImage(item.img),
+                        // image: AssetImage(
+                        //   item['photo']!,
+                        // ),
+                      ),
+                      Container(
+                        width: 7.2.w,
+                        height: 3.4.h,
+                        margin: const EdgeInsets.only(right: 8, top: 8),
+                        decoration: BoxDecoration(
+                          color: ColorConstants.whiteColor,
+                          border: Border.all(width: 0),
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          padding: const EdgeInsets.all(0.1),
+                          iconSize: 20,
+                          icon: const Icon(
+                            Icons.favorite_outline_outlined,
+                            color: ColorConstants.addFavouriteColor,
+                          ),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 0.9.h,
+                  ),
+                  CustomTextWidget(
+                    item.name,
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w500,
+                    color: ColorConstants.blackColor,
+                  ),
+                  Row(
+                    children: [
+                      const Icon(Icons.star,
+                          color: ColorConstants.primaryColor, size: 16),
+                      SizedBox(
+                        width: 1.1.w,
+                      ),
+                      CustomTextWidget(
+                        item.rating,
+                        fontSize: 10.2,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      SizedBox(
+                        width: 12.w,
+                      ),
+                      const Icon(
+                        Icons.location_on_outlined,
+                        size: 16,
+                        color: ColorConstants.primaryColor,
+                      ),
+                      CustomTextWidget(
+                        item.distance,
+                        fontSize: 10.2,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 0.6.h,
+                  ),
+                  Row(
+                    children: [
+                      CustomTextWidget(
+                        '\$ ${item.price.toString()}',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: ColorConstants.primaryColor,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          );
+        },
       );
     },
   );

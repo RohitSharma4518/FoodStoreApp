@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:foodstore/Modules/Login/Widgets/custom_login_textfield.dart';
+import 'package:foodstore/Modules/Login/login_controller.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
@@ -21,7 +22,11 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   bool passwordVisible = true;
 
-  final TextEditingController _password = TextEditingController();
+  // final TextEditingController _password = TextEditingController();
+  final LoginController _loginController = Get.put(LoginController());
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +63,9 @@ class _LoginViewState extends State<LoginView> {
                 SizedBox(
                   height: 0.9.h,
                 ),
-                const CustomTextField(
-                  hint: 'Enter Email',
+                CustomTextField(
+                  hintTextColor: ColorConstants.appBarColor,
+                  controller: _emailController,
                 ),
                 SizedBox(
                   height: 1.6.h,
@@ -68,22 +74,31 @@ class _LoginViewState extends State<LoginView> {
                 SizedBox(
                   height: 0.9.h,
                 ),
-                CustomPasswordTextField(
-                  controller: _password,
-                  hint: "Password",
-                  secureText: passwordVisible,
-                  suffixIcon: IconButton(
-                    onPressed: () => setState(
-                      () {
-                        passwordVisible = !passwordVisible;
-                      },
-                    ),
-                    icon: Icon(passwordVisible
-                        ? Icons.visibility_off_outlined
-                        : Icons.remove_red_eye_outlined),
+                Obx(
+                  () => CustomTextField(
+                    controller: _passwordController,
+                    obscureText: _loginController.isPasswordObscured.value,
+                    obscuringCharacter: '*',
+                    showPasswordIcon: true,
+                    onIconPressed: _loginController.togglePasswordVisibility,
                   ),
-                  // validator: Validator.validatePassword,
                 ),
+                // CustomPasswordTextField(
+                //   controller: _password,
+                //   hint: "Password",
+                //   secureText: passwordVisible,
+                //   suffixIcon: IconButton(
+                //     onPressed: () => setState(
+                //       () {
+                //         passwordVisible = !passwordVisible;
+                //       },
+                //     ),
+                //     icon: Icon(passwordVisible
+                //         ? Icons.visibility_off_outlined
+                //         : Icons.remove_red_eye_outlined),
+                //   ),
+                //   // validator: Validator.validatePassword,
+                // ),
                 SizedBox(
                   height: 1.8.h,
                 ),
@@ -108,7 +123,11 @@ class _LoginViewState extends State<LoginView> {
                   btnName: 'Sign In',
                   btnAction: () {
                     print("Login pressed");
-                    Get.toNamed(AppRoutes.navBarScreen);
+                    // Get.toNamed(AppRoutes.navBarScreen);
+                    _loginController.signInWithEmailPassword(
+                      _emailController.text.trim(),
+                      _passwordController.text.trim(),
+                    );
                   },
                 ),
                 SizedBox(

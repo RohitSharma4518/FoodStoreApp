@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 class NetworkConnectivityController extends GetxController {
   // Variable and object declaration
   var connectionStatusType = 0.obs;
-  final Connectivity _connectivity = Connectivity();
+  // final Connectivity _connectivity = Connectivity();
 
   //Stream to keep listening to network change state
   StreamSubscription? _streamSubscription;

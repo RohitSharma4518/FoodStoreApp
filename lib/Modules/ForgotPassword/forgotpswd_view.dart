@@ -53,9 +53,9 @@ class _ForgotpswdViewState extends State<ForgotpswdView> {
               SizedBox(
                 height: 0.9.h,
               ),
-              const CustomTextField(
-                hint: "Enter Email",
-              ),
+              // const CustomTextField(
+              //   hint: "Enter Email",
+              // ),
               SizedBox(
                 height: 18.h,
               ),

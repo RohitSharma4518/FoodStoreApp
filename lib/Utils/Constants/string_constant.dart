@@ -70,6 +70,10 @@ class StringConstants {
   /// Profile texts
   static const String userProfile = 'User Profile';
   static const String editProfile = 'Edit Profile';
+  static const String profileDropdwnTxt1 = 'Male';
+  static const String profileDropdwnTxt2 = 'Female';
+  static const String profileDropdwnTxt3 = 'Others';
+  static const String profilePhoneTxt = 'Mobile Number';
 
   // Empty Cart Text
   static const String emptyCartAppBarText = 'My Cart';

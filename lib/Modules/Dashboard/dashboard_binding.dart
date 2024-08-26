@@ -10,10 +10,10 @@ class DashboardBindings extends Bindings {
     // find logincontroller which is already initialised
     Get.lazyPut<LoginController>(
       () => LoginController(
-        LoginRepository(
-          ApiManager(),
-        ),
-      ),
+          // LoginRepository(
+          //   ApiManager(),
+          // ),
+          ),
     );
   }
 }

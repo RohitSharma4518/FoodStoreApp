@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "959464962918",
+    "project_id": "foodstore-4c5c8",
+    "storage_bucket": "foodstore-4c5c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959464962918:android:f5ab94d5d7287828a2e6a7",
+        "android_client_info": {
+          "package_name": "com.example.foodstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCxzNrmB62X4zRZ6eQAdzRO_lcAtflmBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

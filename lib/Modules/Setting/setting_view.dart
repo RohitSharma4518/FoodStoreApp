@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
@@ -367,8 +368,17 @@ class _SettingViewState extends State<SettingView> {
                   width: 30.w,
                   child: ThemeBtn(
                     btnName: 'Log Out',
-                    btnAction: () {
-                      Get.toNamed(AppRoutes.loginScreen);
+                    btnAction:
+                        // Get.toNamed(AppRoutes.loginScreen);
+                        () async {
+                      try {
+                        await FirebaseAuth.instance.signOut();
+                        Get.back();
+                        // Navigator.of(context).pop();
+                        Get.offAllNamed(AppRoutes.loginScreen);
+                      } catch (e) {
+                        print('Logout error: $e');
+                      }
                     },
                   ),
                 ),

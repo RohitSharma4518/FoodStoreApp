@@ -212,82 +212,82 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
   }
 }
 
-class CustomTextField extends StatefulWidget {
-  final String? hint;
-  final TextEditingController? controller;
-  final Color? baseColor;
-  final Color? errorColor;
-  final TextInputType inputType;
-  final Function? validator;
-  final Function? onChanged;
-  final Widget? suffixIcon;
+// class CustomTextField extends StatefulWidget {
+//   final String? hint;
+//   final TextEditingController? controller;
+//   final Color? baseColor;
+//   final Color? errorColor;
+//   final TextInputType inputType;
+//   final Function? validator;
+//   final Function? onChanged;
+//   final Widget? suffixIcon;
 
-  const CustomTextField(
-      {this.hint,
-      this.controller,
-      this.onChanged,
-      this.baseColor,
-      this.errorColor,
-      this.inputType = TextInputType.text,
-      this.validator,
-      this.suffixIcon,
-      super.key});
+//   const CustomTextField(
+//       {this.hint,
+//       this.controller,
+//       this.onChanged,
+//       this.baseColor,
+//       this.errorColor,
+//       this.inputType = TextInputType.text,
+//       this.validator,
+//       this.suffixIcon,
+//       super.key});
 
-  @override
-  State<CustomTextField> createState() => _CustomTextFieldState();
-}
+//   @override
+//   State<CustomTextField> createState() => _CustomTextFieldState();
+// }
 
-class _CustomTextFieldState extends State<CustomTextField> {
-  late Color currentColor;
+// class _CustomTextFieldState extends State<CustomTextField> {
+//   late Color currentColor;
 
-  @override
-  void initState() {
-    super.initState();
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      keyboardType: widget.inputType,
-      onChanged: (text) {
-        if (widget.onChanged != null) {
-          widget.onChanged!(text);
-        }
-        setState(() {
-          if (!widget.validator!(text) || text.isEmpty) {
-            currentColor = widget.errorColor!;
-          } else {
-            currentColor = widget.baseColor!;
-          }
-        });
-      },
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: ColorConstants.textFieldBorderColor,
-            width: 1.0,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(8),
-          ),
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(
-            color: ColorConstants.textFieldBorderColor,
-            width: 1.0,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(8),
-          ),
-        ),
-        hintText: widget.hint,
-        hintStyle: const TextStyle(color: ColorConstants.dividerColor),
-        fillColor: Colors.white,
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextField(
+//       keyboardType: widget.inputType,
+//       onChanged: (text) {
+//         if (widget.onChanged != null) {
+//           widget.onChanged!(text);
+//         }
+//         setState(() {
+//           if (!widget.validator!(text) || text.isEmpty) {
+//             currentColor = widget.errorColor!;
+//           } else {
+//             currentColor = widget.baseColor!;
+//           }
+//         });
+//       },
+//       decoration: InputDecoration(
+//         border: InputBorder.none,
+//         focusedBorder: const OutlineInputBorder(
+//           borderSide: BorderSide(
+//             color: ColorConstants.textFieldBorderColor,
+//             width: 1.0,
+//           ),
+//           borderRadius: BorderRadius.all(
+//             Radius.circular(8),
+//           ),
+//         ),
+//         enabledBorder: const OutlineInputBorder(
+//           borderSide: BorderSide(
+//             color: ColorConstants.textFieldBorderColor,
+//             width: 1.0,
+//           ),
+//           borderRadius: BorderRadius.all(
+//             Radius.circular(8),
+//           ),
+//         ),
+//         hintText: widget.hint,
+//         hintStyle: const TextStyle(color: ColorConstants.dividerColor),
+//         fillColor: Colors.white,
+//       ),
+//     );
+//   }
+// }
 
 class CustomSwitch extends StatefulWidget {
   final bool value;
@@ -368,5 +368,216 @@ class _CustomSwitchState extends State<CustomSwitch>
         );
       },
     );
+  }
+}
+
+// import 'package:flutter/material.dart';
+// import 'package:foodstore/Utils/Constants/color_constant.dart';
+
+class CustomTextField extends StatelessWidget {
+  final String? hintText;
+  final TextInputType keyboardType;
+  final bool obscureText;
+  final String obscuringCharacter;
+  final Color hintTextColor;
+  final bool isDropdown;
+  final List<String>? dropdownItems;
+  final bool isDatePicker;
+  final bool isPhoneNumber;
+  final TextEditingController? controller;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onIconPressed;
+  final bool showPasswordIcon;
+
+  const CustomTextField({
+    super.key,
+    this.hintText,
+    this.keyboardType = TextInputType.text,
+    this.obscureText = false,
+    this.obscuringCharacter = '*',
+    this.hintTextColor = ColorConstants.blackColor,
+    this.isDropdown = false,
+    this.dropdownItems,
+    this.isDatePicker = false,
+    this.isPhoneNumber = false,
+    this.controller,
+    this.onChanged,
+    this.onIconPressed,
+    this.showPasswordIcon = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (isDropdown && dropdownItems != null) {
+      return DropdownButtonFormField<String>(
+        dropdownColor: ColorConstants.whiteColor,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: ColorConstants.appBarColor,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: ColorConstants.appBarColor,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: ColorConstants.appBarColor,
+            ),
+          ),
+          hintText: hintText,
+          hintStyle: TextStyle(
+            color: hintTextColor,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+          contentPadding: const EdgeInsets.all(16),
+        ),
+        items: dropdownItems!.map((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        onChanged: (newValue) {
+          if (onChanged != null) {
+            onChanged!(newValue!);
+          }
+        },
+        value: controller?.text.isNotEmpty ?? false ? controller?.text : null,
+      );
+    } else if (isDatePicker) {
+      return GestureDetector(
+        onTap: () async {
+          DateTime? pickedDate = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2101),
+          );
+
+          if (pickedDate != null) {
+            String formattedDate = "${pickedDate.toLocal()}".split(' ')[0];
+            controller?.text = formattedDate;
+            if (onChanged != null) {
+              onChanged!(formattedDate);
+            }
+          }
+        },
+        child: AbsorbPointer(
+          child: TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: const BorderSide(
+                  color: ColorConstants.appBarColor,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: const BorderSide(
+                  color: ColorConstants.appBarColor,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: const BorderSide(
+                  color: ColorConstants.dividerColor,
+                ),
+              ),
+              hintText: hintText,
+              hintStyle: TextStyle(
+                color: hintTextColor,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+              contentPadding: const EdgeInsets.all(16),
+            ),
+          ),
+        ),
+      );
+    } else if (isPhoneNumber) {
+      return TextField(
+        controller: controller,
+        keyboardType: TextInputType.phone,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: ColorConstants.appBarColor,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: ColorConstants.appBarColor,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: ColorConstants.dividerColor,
+            ),
+          ),
+          hintText: hintText,
+          hintStyle: TextStyle(
+            color: hintTextColor,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+          contentPadding: const EdgeInsets.all(16),
+        ),
+      );
+    } else {
+      return TextField(
+        keyboardType: keyboardType,
+        obscureText: obscureText,
+        obscuringCharacter: obscuringCharacter,
+        cursorRadius: const Radius.circular(8),
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: ColorConstants.appBarColor,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: ColorConstants.appBarColor,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: ColorConstants.dividerColor,
+            ),
+          ),
+          hintText: hintText,
+          hintStyle: TextStyle(
+            color: hintTextColor,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+          contentPadding: const EdgeInsets.all(16),
+          suffixIcon: showPasswordIcon
+              ? IconButton(
+                  icon: Icon(
+                    obscureText ? Icons.visibility_off : Icons.visibility,
+                  ),
+                  onPressed: onIconPressed,
+                )
+              : null,
+        ),
+        controller: controller,
+        onChanged: onChanged,
+      );
+    }
   }
 }

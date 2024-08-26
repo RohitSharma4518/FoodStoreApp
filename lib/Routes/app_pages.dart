@@ -19,6 +19,7 @@ class AppPages {
   ///
   /// Define Initial Screen Route
   ///
+  // ignore: constant_identifier_names
   static const INITIAL = AppRoutes.splashScreen;
 
   ///

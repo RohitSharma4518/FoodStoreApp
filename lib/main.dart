@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:foodstore/firebase_options.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:foodstore/Routes/app_pages.dart';
@@ -10,6 +12,10 @@ import 'Controllers/global_controller_binding.dart';
 void main() async {
   // Returns an instance of the binding that implements
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   // Get_Stoarage Initialisation
   await GetStorage.init();
