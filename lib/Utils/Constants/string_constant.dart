@@ -11,9 +11,52 @@ class StringConstants {
   static const String topCountries = 'Top Countries';
 
   ///
+  /// Splash Page Text
+  static const String splashHeadTxt1 = 'We serve incomparable delicacies';
+  static const String splashBtnTxt1 = 'Skip';
+  static const String splashBtnTxt2 = 'Next';
+  static const String splashHeadTxt2 =
+      'All the best restaurants with their top menu waiting for you, they can\'t wait for your order!!';
+
+  ///
+  /// Forgot Password Text
+  static const String forgotpassHeadTxt = 'Forgot password?';
+  static const String forgotpassEmailTxt = 'Email Address';
+  static const String forgotpassBtnTxt = 'Continue';
+  static const String forgotpassSubHeadTxt =
+      'Enter your email address and we’ll send you confirmation code to reset your password';
+
+  ///
+  /// Reset Password Screen Text
+  static const String resetPassTxt = 'Reset Password';
+  static const String resetpassNewPassTxt = 'New Password';
+  static const String resetpassNewPassTxt2 = 'Confirm Password';
+  static const String resetpassSuccessTxt1 = 'Password Changed';
+  static const String resetpassSuccessTxt2 =
+      'Password changed successfully, you can login again with a new password';
+  static const String resetPassSubTxt =
+      'Your new password must be different from the previously used password';
+
+  ///
   /// Side menu texts
   static const String dashboard = 'Dashboard';
   static const String logout = 'logout';
+
+  ///
+  /// Login Page texts
+  static const String loginHeadTxt = 'Login to your account';
+  static const String loginSubHeadTxt = 'Please sign in to your account';
+  static const String loginForgotpassTxt = 'Forgot password?';
+  static const String loginSigninOptionTxt = 'Or sign in with';
+
+  ///
+  /// Register Page Text
+  static const String registerHeadTxt = 'Create your new account';
+  static const String registerEmailTxt = 'Email Address';
+  static const String registerUNameTxt = 'User Name';
+  static const String registerPassTxt = 'Password';
+  static const String registerSubHeadTxt =
+      'Create an account to start looking for the food you like';
 
   ///
   /// Search Page Texts
@@ -44,6 +87,20 @@ class StringConstants {
   static const String profileLabel5Txt = 'Email';
 
   ///
+  /// Food Item details Screen
+  static const String detailHeadTxt = 'About This Menu';
+  static const String detailFoodItemTxt = 'Burger With Meat 🍔';
+  static const String detailFoodItemPriceTxt = '\$ 12,230';
+  static const String detailFreeDeliveryTxt = 'Free Delivery';
+  static const String detailTimeTxt = '25 - 30';
+  static const String detailRatingTxt = '4.5';
+  static const String detailFdDescriptionTxt = 'Description';
+  static const String detailFdPriceTxt = '\$ 12,460';
+  static const String detailFdBtnTxt = 'Add to Cart';
+  static const String detailFdDescDetailTxt =
+      'Burger With Meat is a typical food from our restaurant that is much in demand by many people, this is very recommended for you.';
+
+  ///
   ///  Cart Page Text
   static const String cartLocationTxt1 = 'Delivery Location';
   static const String cartLocationTxt2 = 'Home';
@@ -66,6 +123,7 @@ class StringConstants {
 
   ///
   /// Settings Page Text
+  static const String settingHeadTxt = 'Settings';
   static const String settingProfileTxt = 'PROFILE';
   static const String settingPushNotifyTxt = 'Push Notification';
   static const String settingLocationTxt = 'Location';
@@ -78,4 +136,16 @@ class StringConstants {
   static const String settingSignOutAlertTxt = 'Do you want to log out?';
   static const String settingCancelBtnTxt = 'Cancel';
   static const String settingLogoutBtnTxt = 'Log Out';
+  static const String settingCancelBtn = 'Cancel';
+
+  ///
+  /// Dashboard Page Text
+  static const String dashboardHeadTxt = 'Provide the best food for you';
+  static const String dashboardLocationTxt = 'New York City';
+  static const String dashboardCategoryTxt1 = 'Find by Category';
+  static const String dashboardCategoryTxt2 = 'See All';
+  static const String dashboardCategory1 = 'Burger';
+  static const String dashboardCategory2 = 'Taco';
+  static const String dashboardCategory3 = 'Drink';
+  static const String dashboardCategory4 = 'Pizza';
 }

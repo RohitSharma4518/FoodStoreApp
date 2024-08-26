@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:foodstore/Utils/Constants/string_constant.dart';
+import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
+import 'package:sizer/sizer.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -39,63 +42,62 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
-                margin: const EdgeInsets.only(left: 32, right: 32, bottom: 40),
+                margin:
+                    EdgeInsets.only(left: 7.8.w, right: 7.8.w, bottom: 4.6.h),
                 decoration: BoxDecoration(
-                    color: ColorConstants.primaryColor,
-                    borderRadius: BorderRadius.circular(48.0)),
+                  color: ColorConstants.primaryColor,
+                  borderRadius: BorderRadius.circular(48.0),
+                ),
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 32, horizontal: 30),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text(
-                        'We serve incomparable delicacies',
+                      const CustomTextWidget(
+                        StringConstants.splashHeadTxt1,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 32,
-                          color: ColorConstants.whiteColor,
-                        ),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 25,
+                        color: ColorConstants.whiteColor,
                       ),
-                      const SizedBox(
-                        height: 16,
+                      SizedBox(
+                        height: 1.8.h,
                       ),
                       const Padding(
                         padding: EdgeInsets.only(left: 10.0),
-                        child: Text(
-                          'All the best restaurants with their top menu waiting for you, they can\'t wait for your order!!',
+                        child: CustomTextWidget(
+                          StringConstants.splashHeadTxt2,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                            color: ColorConstants.whiteColor,
-                          ),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 10.5,
+                          color: ColorConstants.whiteColor,
                         ),
                       ),
-                      const SizedBox(
-                        height: 120,
+                      SizedBox(
+                        height: 13.4.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextButton(
                             onPressed: () {},
-                            child: const Text(
-                              'Skip',
-                              style: TextStyle(
-                                color: ColorConstants.whiteColor,
-                                fontSize: 14,
-                              ),
+                            child: const CustomTextWidget(
+                              StringConstants.splashBtnTxt1,
+                              color: ColorConstants.whiteColor,
+                              fontSize: 10.5,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           TextButton.icon(
-                            onPressed: () {},
-                            label: const Text(
-                              'Next',
-                              style: TextStyle(
-                                color: ColorConstants.whiteColor,
-                              ),
+                            onPressed: () {
+                              Get.toNamed(AppRoutes.loginScreen);
+                            },
+                            label: const CustomTextWidget(
+                              StringConstants.splashBtnTxt2,
+                              color: ColorConstants.whiteColor,
+                              fontSize: 10.5,
+                              fontWeight: FontWeight.w600,
                             ),
                             icon: const Icon(
                               Icons.arrow_right_alt,

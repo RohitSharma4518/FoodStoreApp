@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
+import 'package:foodstore/Utils/Constants/string_constant.dart';
 import 'package:foodstore/Utils/Constants/widget_constant.dart';
+import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 class ResetpswdView extends StatefulWidget {
   const ResetpswdView({super.key});
@@ -25,7 +28,7 @@ class _ResetpswdViewState extends State<ResetpswdView> {
       appBar: AppBar(
         backgroundColor: ColorConstants.whiteColor,
         leading: Container(
-          margin: const EdgeInsets.only(left: 24),
+          margin: EdgeInsets.only(left: 5.6.w),
           decoration: BoxDecoration(
             border: Border.all(color: ColorConstants.appBarColor, width: 1),
             shape: BoxShape.circle,
@@ -42,59 +45,62 @@ class _ResetpswdViewState extends State<ResetpswdView> {
             },
           ),
         ),
-        leadingWidth: 60,
-        toolbarHeight: 60,
-        title: const Text(
-          'Reset Password',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+        leadingWidth: 14.5.w,
+        toolbarHeight: 7.h,
+        title: const CustomTextWidget(
+          StringConstants.resetPassTxt,
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
         ),
         centerTitle: true,
       ),
       backgroundColor: ColorConstants.whiteColor,
       body: SingleChildScrollView(
         child: Container(
-          margin:
-              const EdgeInsets.only(top: 28, bottom: 32, left: 24, right: 24),
+          margin: EdgeInsets.only(
+              top: 3.2.h, bottom: 3.8.h, left: 5.8.w, right: 5.6.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              const Text(
-                'Reset password?',
+              const CustomTextWidget(
+                StringConstants.resetPassTxt,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
-                ),
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
               ),
-              const SizedBox(
-                height: 8,
+              SizedBox(
+                height: 0.9.h,
               ),
-              const Text(
-                'Your new password must be different from the previously used password',
-                style: TextStyle(
-                    color: ColorConstants.dividerColor,
-                    fontWeight: FontWeight.w500),
+              const CustomTextWidget(
+                StringConstants.resetPassSubTxt,
+                textAlign: TextAlign.left,
+                color: ColorConstants.dividerColor,
+                fontWeight: FontWeight.w500,
+                fontSize: 10.5,
               ),
-              const SizedBox(
-                height: 32,
+              SizedBox(
+                height: 4.h,
               ),
-              const Text('New Password'),
-              const SizedBox(
-                height: 8,
+              const CustomTextWidget(
+                StringConstants.resetpassNewPassTxt,
+                fontSize: 10.3,
+              ),
+              SizedBox(
+                height: 0.9.h,
               ),
               const CustomTextField(
                 hint: 'New Password',
               ),
-              const SizedBox(
-                height: 24,
+              SizedBox(
+                height: 2.8.h,
               ),
-              const Text('Confirm Password'),
-              const SizedBox(
-                height: 8,
+              const CustomTextWidget(
+                StringConstants.resetpassNewPassTxt2,
+                fontSize: 10.3,
+              ),
+              SizedBox(
+                height: 0.9.h,
               ),
               CustomPasswordTextField(
                 controller: _password,
@@ -112,8 +118,8 @@ class _ResetpswdViewState extends State<ResetpswdView> {
                 ),
                 // validator: Validator.validatePassword,
               ),
-              const SizedBox(
-                height: 248,
+              SizedBox(
+                height: 28.h,
               ),
               Align(
                 alignment: Alignment.bottomCenter,
@@ -124,43 +130,40 @@ class _ResetpswdViewState extends State<ResetpswdView> {
                       context: context,
                       builder: (BuildContext context) {
                         return SizedBox(
-                          height: 492,
+                          height: 57.h,
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Image.asset(AssetConstant.bottomSheetImg),
-                                const SizedBox(
-                                  height: 32,
+                                SizedBox(
+                                  height: 4.h,
                                 ),
-                                const Text(
-                                  'Password Changed',
+                                const CustomTextWidget(
+                                  StringConstants.resetpassSuccessTxt1,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 12,
-                                ),
-                                const SizedBox(
-                                  width: 327,
-                                  child: Text(
-                                    'Password changed successfully, you can login again with a new password',
-                                    style: TextStyle(
-                                      color: ColorConstants.dividerColor,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 32,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
                                 ),
                                 SizedBox(
-                                  width: 312,
+                                  height: 1.8.h,
+                                ),
+                                SizedBox(
+                                  width: 70.w,
+                                  child: const CustomTextWidget(
+                                    StringConstants.resetpassSuccessTxt2,
+                                    color: ColorConstants.dividerColor,
+                                    fontWeight: FontWeight.w500,
+                                    textAlign: TextAlign.center,
+                                    fontSize: 10.8,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 4.h,
+                                ),
+                                SizedBox(
+                                  width: 80.w,
                                   child: ThemeBtn(
                                     btnName: 'Verify Account',
                                     btnAction: () {

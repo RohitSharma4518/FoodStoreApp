@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodstore/Modules/Cart/cart_controller.dart';
+import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
 import 'package:foodstore/Utils/Constants/string_constant.dart';
@@ -18,6 +19,7 @@ class CartView extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorConstants.cartPageBgColor,
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: ColorConstants.cartPageBgColor,
         leading: Container(
           margin: EdgeInsets.only(left: 5.5.w),
@@ -61,7 +63,9 @@ class CartView extends StatelessWidget {
                 Icons.more_horiz_rounded,
                 color: ColorConstants.blackColor,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(AppRoutes.emptyCartScreen);
+              },
             ),
           ),
         ],

@@ -31,7 +31,7 @@ class _SettingViewState extends State<SettingView> {
     return Scaffold(
       backgroundColor: ColorConstants.whiteColor,
       appBar: AppBar(
-        backgroundColor: ColorConstants.cartPageBgColor,
+        backgroundColor: ColorConstants.whiteColor,
         leading: Container(
           margin: EdgeInsets.only(left: 5.5.w),
           decoration: BoxDecoration(
@@ -53,7 +53,7 @@ class _SettingViewState extends State<SettingView> {
         leadingWidth: 15.w,
         toolbarHeight: 7.h,
         title: const CustomTextWidget(
-          StringConstants.emptyCartAppBarText,
+          StringConstants.settingHeadTxt,
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
@@ -74,106 +74,97 @@ class _SettingViewState extends State<SettingView> {
                 Icons.logout,
                 color: ColorConstants.blackColor,
               ),
-              onPressed: () {},
+              onPressed: () {
+                _showLogoutDialog(context);
+              },
             ),
           ),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.only(
-          left: 24,
-          right: 24,
+        padding: EdgeInsets.only(
+          left: 5.6.w,
+          right: 5.6.w,
           top: 16,
           bottom: 60,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            const CustomTextWidget(
               StringConstants.settingProfileTxt,
-              style: TextStyle(
-                color: ColorConstants.dividerColor,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
+              color: ColorConstants.dividerColor,
+              fontSize: 8.5,
+              fontWeight: FontWeight.w500,
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 1.h,
             ),
 
             //Push Notification
-
             Container(
               margin: const EdgeInsets.only(
-                left: 0,
                 top: 8,
                 bottom: 8,
-                right: 0,
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const CustomTextWidget(
                     StringConstants.settingPushNotifyTxt,
-                    style: TextStyle(
-                      color: ColorConstants.blackColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    color: ColorConstants.blackColor,
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.w500,
                   ),
-                  // CustomSwitch(
-                  //   value: _enable,
-                  //   onChanged: (bool val) {
-                  //     setState(() {
-                  //       _enable = val;
-                  //     });
-                  //   },
-                  // ),
+                  CustomSwitch(
+                    value: _enable,
+                    onChanged: (bool val) {
+                      setState(() {
+                        _enable = val;
+                      });
+                    },
+                  ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 1.h,
             ),
 
             //Location
-
             Container(
               margin: const EdgeInsets.only(
-                left: 0,
                 top: 8,
                 bottom: 8,
-                right: 0,
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const CustomTextWidget(
                     StringConstants.settingLocationTxt,
-                    style: TextStyle(
-                      color: ColorConstants.blackColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    color: ColorConstants.blackColor,
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.w500,
                   ),
-                  // CustomSwitch(
-                  //   value: _enable1,
-                  //   onChanged: (bool val) {
-                  //     setState(() {
-                  //       _enable1 = val;
-                  //     });
-                  //   },
-                  // ),
+                  CustomSwitch(
+                    value: _enable1,
+                    onChanged: (bool val) {
+                      setState(
+                        () {
+                          _enable1 = val;
+                        },
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
 
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 1.h,
             ),
 
             //Language
-
             Container(
               margin: const EdgeInsets.all(0.0),
               child: Row(
@@ -222,35 +213,30 @@ class _SettingViewState extends State<SettingView> {
               ),
             ),
 
-            const SizedBox(
-              height: 18,
+            SizedBox(
+              height: 2.h,
             ),
 
-            const Text(
+            const CustomTextWidget(
               StringConstants.settingOtherTxt,
-              style: TextStyle(
-                color: ColorConstants.dividerColor,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
+              color: ColorConstants.dividerColor,
+              fontSize: 8.6,
+              fontWeight: FontWeight.w500,
             ),
 
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: 1.h,
             ),
 
             //About Ticket
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                const CustomTextWidget(
                   StringConstants.settingTicketTxt,
-                  style: TextStyle(
-                    color: ColorConstants.blackColor,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  color: ColorConstants.blackColor,
+                  fontSize: 10.5,
+                  fontWeight: FontWeight.w500,
                 ),
                 IconButton(
                   onPressed: () {},
@@ -262,61 +248,45 @@ class _SettingViewState extends State<SettingView> {
             ),
 
             // privacy policy
-            Container(
-              color: ColorConstants.whiteColor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    StringConstants.settingPrivacyTxt,
-                    style: TextStyle(
-                      color: ColorConstants.blackColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_forward_ios),
-                    iconSize: 20,
-                    color: ColorConstants.blackColor,
-                  )
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const CustomTextWidget(
+                  StringConstants.settingPrivacyTxt,
+                  color: ColorConstants.blackColor,
+                  fontSize: 10.5,
+                  fontWeight: FontWeight.w500,
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.arrow_forward_ios),
+                  iconSize: 20,
+                  color: ColorConstants.blackColor,
+                )
+              ],
             ),
 
             // term and condition policy
-            Container(
-              color: ColorConstants.whiteColor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    StringConstants.settingTcTxt,
-                    style: TextStyle(
-                      color: ColorConstants.blackColor,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_forward_ios),
-                    iconSize: 20,
-                    color: ColorConstants.blackColor,
-                  )
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const CustomTextWidget(
+                  StringConstants.settingTcTxt,
+                  color: ColorConstants.blackColor,
+                  fontSize: 10.5,
+                  fontWeight: FontWeight.w500,
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.arrow_forward_ios),
+                  iconSize: 20,
+                  color: ColorConstants.blackColor,
+                )
+              ],
             ),
 
-            const SizedBox(
-              height: 40,
-            ),
-            ThemeBtn(
-              btnName: 'Sign Out',
-              btnAction: () {
-                _showLogoutDialog(context);
-              },
+            SizedBox(
+              height: 4.4.h,
             ),
           ],
         ),
@@ -333,20 +303,15 @@ class _SettingViewState extends State<SettingView> {
             borderRadius: BorderRadius.all(Radius.circular(12.0)),
           ),
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 70),
-                child: Text(
-                  StringConstants.settingSignOutTxt,
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+              const CustomTextWidget(
+                StringConstants.settingSignOutTxt,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
               ),
-              const SizedBox(
-                width: 61,
+              SizedBox(
+                width: 13.w,
               ),
               IconButton(
                 onPressed: () {
@@ -360,69 +325,49 @@ class _SettingViewState extends State<SettingView> {
               ),
             ],
           ),
-          content: const Text(
+          content: const CustomTextWidget(
             StringConstants.settingSignOutAlertTxt,
-            style: TextStyle(
-              color: ColorConstants.dividerColor,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
+            color: ColorConstants.dividerColor,
+            fontSize: 10.5,
+            fontWeight: FontWeight.w500,
             textAlign: TextAlign.center,
           ),
           actions: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  height: 48,
-                  width: 130.5,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: ColorConstants.dividerColor),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(100),
-                    ),
-                  ),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorConstants.whiteColor,
-                    ),
-                    child: const Text(
-                      StringConstants.settingCancelBtnTxt,
-                      style: TextStyle(
-                        color: ColorConstants.blackColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                SizedBox(
+                  height: 5.8.h,
+                  width: 30.w,
+                  child: TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Get.close(1);
                     },
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Container(
-                  height: 48,
-                  width: 130.5,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(100),
-                    ),
-                  ),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorConstants.primaryColor),
-                    child: const Text(
-                      StringConstants.settingLogoutBtnTxt,
-                      style: TextStyle(
-                        color: ColorConstants.whiteColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
+                    style: TextButton.styleFrom(
+                      side: const BorderSide(
+                        color: ColorConstants.signputBtnColor,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
+                    child: const CustomTextWidget(
+                      StringConstants.settingCancelBtn,
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w600,
+                      color: ColorConstants.blackColor,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 5.w,
+                ),
+                SizedBox(
+                  height: 5.8.h,
+                  width: 30.w,
+                  child: ThemeBtn(
+                    btnName: 'Log Out',
+                    btnAction: () {
                       Get.toNamed(AppRoutes.loginScreen);
                     },
                   ),

@@ -5,10 +5,11 @@ import 'package:foodstore/Modules/Signup/signup_controller.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
+import 'package:foodstore/Utils/Constants/string_constant.dart';
 import 'package:foodstore/Utils/Constants/widget_constant.dart';
+import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-// import 'package:foodstore/Modules/Signup/signup_controller.dart';
+import 'package:sizer/sizer.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({super.key});
@@ -20,32 +21,35 @@ class SignupView extends StatelessWidget {
       backgroundColor: ColorConstants.whiteColor,
       body: SingleChildScrollView(
         child: Container(
-            margin:
-                const EdgeInsets.only(top: 76, bottom: 34, left: 24, right: 24),
+            margin: EdgeInsets.only(
+              top: 8.8.h,
+              left: 5.7.w,
+              right: 5.7.w,
+            ),
             child: Obx(
               () => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    width: 250.0,
-                    child: Text(
-                      'Create your new account',
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  SizedBox(
+                    width: 65.w,
+                    child: const CustomTextWidget(
+                      StringConstants.registerHeadTxt,
+                      fontSize: 25,
+                      textAlign: TextAlign.left,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(
-                    height: 8,
+                  SizedBox(
+                    height: 0.9.h,
                   ),
-                  const SizedBox(
-                    width: 320,
-                    child: Text(
-                      'Create an account to start looking for the food you like',
-                      style: TextStyle(
-                          color: ColorConstants.dividerColor,
-                          fontWeight: FontWeight.w500),
+                  SizedBox(
+                    width: 75.w,
+                    child: const CustomTextWidget(
+                      StringConstants.registerSubHeadTxt,
+                      color: ColorConstants.dividerColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 10.5,
+                      textAlign: TextAlign.left,
                     ),
                   ),
                   Form(
@@ -53,43 +57,46 @@ class SignupView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: 12,
+                        SizedBox(
+                          height: 1.4.h,
                         ),
-                        const Text(
-                          'Email Address',
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                        const CustomTextWidget(
+                          StringConstants.registerEmailTxt,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 10.3,
                         ),
-                        const SizedBox(
-                          height: 8,
+                        SizedBox(
+                          height: 0.9.h,
                         ),
                         CustomTextField(
                           hint: "Enter Email",
                           controller: signupController.email,
                         ),
-                        const SizedBox(
-                          height: 14,
+                        SizedBox(
+                          height: 1.4.h,
                         ),
-                        const Text(
-                          'User Name',
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                        const CustomTextWidget(
+                          StringConstants.registerUNameTxt,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 10.3,
                         ),
-                        const SizedBox(
-                          height: 8,
+                        SizedBox(
+                          height: 0.9.h,
                         ),
                         CustomTextField(
                           hint: "User Name",
                           controller: signupController.username,
                         ),
-                        const SizedBox(
-                          height: 14,
+                        SizedBox(
+                          height: 1.4.h,
                         ),
-                        const Text(
-                          'Password',
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                        const CustomTextWidget(
+                          StringConstants.registerPassTxt,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 10.3,
                         ),
-                        const SizedBox(
-                          height: 8,
+                        SizedBox(
+                          height: 0.9.h,
                         ),
                         CustomPasswordTextField(
                           hint: "Password",
@@ -109,15 +116,15 @@ class SignupView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 14,
+                  SizedBox(
+                    height: 1.6.h,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 20,
-                        width: 20,
+                        height: 2.2.h,
+                        width: 5.w,
                         child: Checkbox.adaptive(
                           value: signupController.agreeToTerms.value,
                           onChanged: (bool? val) {
@@ -127,11 +134,11 @@ class SignupView extends StatelessWidget {
                           activeColor: ColorConstants.primaryColor,
                         ),
                       ),
-                      const SizedBox(
-                        width: 8,
+                      SizedBox(
+                        width: 0.9.h,
                       ),
                       SizedBox(
-                        width: 260,
+                        width: 65.w,
                         child: RichText(
                           text: const TextSpan(
                             text: 'I Agree with ',
@@ -164,7 +171,9 @@ class SignupView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(
+                    height: 2.8.h,
+                  ),
                   ThemeBtn(
                     btnName: 'Register',
                     btnAction: () {},
@@ -177,7 +186,9 @@ class SignupView extends StatelessWidget {
                     //   }
                     // },
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(
+                    height: 2.8.h,
+                  ),
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -189,11 +200,11 @@ class SignupView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Text(
-                        'Or sign in with',
-                        style: TextStyle(
-                            color: ColorConstants.dividerColor,
-                            fontWeight: FontWeight.w500),
+                      const CustomTextWidget(
+                        StringConstants.loginSigninOptionTxt,
+                        fontSize: 10.5,
+                        color: ColorConstants.dividerColor,
+                        fontWeight: FontWeight.w500,
                       ),
                       Expanded(
                         child: Container(
@@ -207,22 +218,24 @@ class SignupView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 25),
-                  const Row(
+                  SizedBox(
+                    height: 2.8.h,
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      AuthOption(imagePath: AssetConstant.authGoogleImg),
+                      const AuthOption(imagePath: AssetConstant.authGoogleImg),
                       SizedBox(
-                        width: 16,
+                        width: 3.9.w,
                       ),
-                      AuthOption(imagePath: AssetConstant.authFbImg),
+                      const AuthOption(imagePath: AssetConstant.authFbImg),
                       SizedBox(
-                        width: 16,
+                        width: 3.9.w,
                       ),
-                      AuthOption(imagePath: AssetConstant.authAppleImg),
+                      const AuthOption(imagePath: AssetConstant.authAppleImg),
                     ],
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(height: 3.7.h),
                   Align(
                     alignment: Alignment.center,
                     child: RichText(

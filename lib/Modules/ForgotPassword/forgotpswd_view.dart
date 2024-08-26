@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
+import 'package:foodstore/Utils/Constants/string_constant.dart';
 import 'package:foodstore/Utils/Constants/widget_constant.dart';
+import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 class ForgotpswdView extends StatefulWidget {
   const ForgotpswdView({super.key});
@@ -20,42 +23,44 @@ class _ForgotpswdViewState extends State<ForgotpswdView> {
       backgroundColor: ColorConstants.whiteColor,
       body: SingleChildScrollView(
         child: Container(
-          margin:
-              const EdgeInsets.only(top: 76, bottom: 137, left: 24, right: 24),
+          margin: EdgeInsets.only(
+              top: 8.8.h, bottom: 16.h, left: 5.8.w, right: 5.8.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Forgot password?',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w600,
-                ),
+              const CustomTextWidget(
+                StringConstants.forgotpassHeadTxt,
+                fontSize: 25,
+                fontWeight: FontWeight.w600,
               ),
-              const SizedBox(
-                height: 8,
+              SizedBox(
+                height: 0.9.h,
               ),
-              const Text(
-                'Enter your email address and we’ll send you confirmation code to reset your password',
-                style: TextStyle(
-                    color: ColorConstants.dividerColor,
-                    fontWeight: FontWeight.w500),
+              const CustomTextWidget(
+                StringConstants.forgotpassSubHeadTxt,
+                textAlign: TextAlign.left,
+                color: ColorConstants.dividerColor,
+                fontWeight: FontWeight.w500,
+                fontSize: 10.5,
               ),
-              const SizedBox(
-                height: 32,
+              SizedBox(
+                height: 3.6.h,
               ),
-              const Text('Email Address'),
-              const SizedBox(
-                height: 8,
+              const CustomTextWidget(
+                StringConstants.forgotpassEmailTxt,
+                fontSize: 10.3,
+              ),
+              SizedBox(
+                height: 0.9.h,
               ),
               const CustomTextField(
                 hint: "Enter Email",
               ),
-              const SizedBox(
-                height: 161,
+              SizedBox(
+                height: 18.h,
               ),
               ThemeBtn(
-                btnName: 'Continue',
+                btnName: StringConstants.forgotpassBtnTxt,
                 btnAction: () => Get.toNamed(AppRoutes.resetPswdScreen),
               ),
             ],

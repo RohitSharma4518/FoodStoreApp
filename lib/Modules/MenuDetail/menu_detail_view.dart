@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
+import 'package:foodstore/Utils/Constants/string_constant.dart';
+import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 const List<String> list = <String>['Your Location', 'Two', 'Three', 'Four'];
 
@@ -67,7 +70,7 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                 children: [
                   Container(
                     margin: const EdgeInsets.only(left: 8, top: 8, right: 8),
-                    height: 445,
+                    height: 50.h,
                     decoration: BoxDecoration(
                       color: ColorConstants.whiteColor,
                       borderRadius: BorderRadius.circular(16),
@@ -89,7 +92,7 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                         // Code for Page Indicator
                         Container(
                           color: Colors.transparent,
-                          margin: const EdgeInsets.only(bottom: 80),
+                          margin: EdgeInsets.only(bottom: 4.h),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: List<Widget>.generate(
@@ -98,8 +101,8 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 4),
                                 child: Container(
-                                  height: 4,
-                                  width: 32,
+                                  height: 0.4.h,
+                                  width: 8.w,
                                   decoration: BoxDecoration(
                                     color: _activePage == index
                                         ? ColorConstants.primaryColor
@@ -116,14 +119,14 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                   ),
                   //App Bar Code
                   Container(
-                    margin: const EdgeInsets.only(top: 44),
+                    margin: EdgeInsets.only(top: 5.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          height: 36,
-                          width: 36,
-                          margin: const EdgeInsets.only(left: 24),
+                          height: 4.2.h,
+                          width: 9.5.w,
+                          margin: EdgeInsets.only(left: 6.w),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.white, width: 1),
@@ -139,17 +142,16 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                             onPressed: () => Get.back(),
                           ),
                         ),
-                        const Text(
-                          'About This Menu',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: ColorConstants.whiteColor),
+                        const CustomTextWidget(
+                          StringConstants.detailHeadTxt,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: ColorConstants.whiteColor,
                         ),
                         Container(
-                          height: 36,
-                          width: 36,
-                          margin: const EdgeInsets.only(right: 24),
+                          height: 4.2.h,
+                          width: 9.5.w,
+                          margin: EdgeInsets.only(right: 6.w),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.white, width: 1),
@@ -174,66 +176,61 @@ class _MenuDetailViewState extends State<MenuDetailView> {
           ),
           Container(
             width: double.infinity,
-            height: 450,
+            height: 52.h,
             decoration: const BoxDecoration(
                 color: ColorConstants.whiteColor,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40))),
             child: Container(
-              margin: const EdgeInsets.only(
-                  left: 24, right: 24, top: 16, bottom: 32),
+              margin: EdgeInsets.only(
+                  left: 6.w, right: 6.w, top: 1.8.h, bottom: 3.6.h),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Burger With Meat 🍔',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    const CustomTextWidget(
+                      StringConstants.detailFoodItemTxt,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
                     ),
-                    const SizedBox(
-                      height: 8,
+                    SizedBox(
+                      height: 0.9.h,
                     ),
-                    const Text(
-                      '\$ 12,230',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                        color: ColorConstants.primaryColor,
-                      ),
+                    const CustomTextWidget(
+                      StringConstants.detailFoodItemPriceTxt,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: ColorConstants.primaryColor,
                     ),
-                    const SizedBox(
-                      height: 16,
+                    SizedBox(
+                      height: 1.8.h,
                     ),
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                          color: const Color.fromARGB(24, 254, 140, 0),
+                          color: ColorConstants.cartDetailColor,
                           borderRadius: BorderRadius.circular(8)),
-                      child: const Row(
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           //Row 1
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.attach_money,
                                 size: 20,
                                 color: ColorConstants.primaryColor,
                               ),
                               SizedBox(
-                                width: 8,
+                                width: 2.w,
                               ),
-                              Text(
-                                'Free Delivery',
-                                style: TextStyle(
-                                  color: ColorConstants.dividerColor,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                              const CustomTextWidget(
+                                StringConstants.detailFreeDeliveryTxt,
+                                color: ColorConstants.dividerColor,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 10,
                               ),
                             ],
                           ),
@@ -241,20 +238,19 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.access_time_filled_outlined,
                                 size: 18,
                                 color: ColorConstants.primaryColor,
                               ),
                               SizedBox(
-                                width: 8,
+                                width: 2.w,
                               ),
-                              Text(
-                                '25 - 30',
-                                style: TextStyle(
-                                  color: ColorConstants.dividerColor,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                              const CustomTextWidget(
+                                StringConstants.detailTimeTxt,
+                                color: ColorConstants.dividerColor,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 10,
                               ),
                             ],
                           ),
@@ -262,51 +258,48 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.star,
                                 size: 20,
                                 color: ColorConstants.primaryColor,
                               ),
                               SizedBox(
-                                width: 8,
+                                width: 2.w,
                               ),
-                              Text(
-                                '4.5',
-                                style: TextStyle(
-                                  color: ColorConstants.dividerColor,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                              const CustomTextWidget(
+                                StringConstants.detailRatingTxt,
+                                color: ColorConstants.dividerColor,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 10,
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 34,
+                    SizedBox(
+                      height: 3.8.h,
                     ),
-                    const Text(
-                      'Description',
-                      style: TextStyle(
-                        fontSize: 17.5,
-                        fontWeight: FontWeight.w600,
+                    const CustomTextWidget(
+                      StringConstants.detailFdDescriptionTxt,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    SizedBox(
+                      height: 1.h,
+                    ),
+                    SizedBox(
+                      width: 75.w,
+                      child: const CustomTextWidget(
+                        StringConstants.detailFdDescDetailTxt,
+                        textAlign: TextAlign.left,
+                        color: ColorConstants.dividerColor,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 11,
                       ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    const SizedBox(
-                      width: 320,
-                      child: Text(
-                        'Burger With Meat is a typical food from our restaurant that is much in demand by many people, this is very recommended for you.',
-                        style: TextStyle(
-                            color: ColorConstants.dividerColor,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15.4),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
+                    SizedBox(
+                      height: 2.4.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -316,52 +309,47 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                           children: [
                             IconButton(
                               onPressed: () => decrementCounter(),
-                              icon: Icon(Icons.remove),
-                              iconSize: 40,
+                              icon: const Icon(Icons.remove),
+                              iconSize: 28,
                             ),
-                            const SizedBox(
-                              width: 14,
+                            SizedBox(
+                              width: 3.w,
                             ),
-                            Text(
+                            CustomTextWidget(
                               counter < 0 ? '0' : '$counter',
-                              style: const TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              fontSize: 13,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
                             ),
-                            const SizedBox(
-                              width: 14,
+                            SizedBox(
+                              width: 3.w,
                             ),
                             IconButton(
                               onPressed: () => addCounter(),
-                              icon: Icon(Icons.add),
-                              iconSize: 40,
+                              icon: const Icon(Icons.add),
+                              iconSize: 28,
                             ),
                           ],
                         ),
-                        const Text(
-                          '\$ 12,460',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600,
-                            color: ColorConstants.primaryColor,
-                          ),
+                        const CustomTextWidget(
+                          StringConstants.detailFoodItemPriceTxt,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color: ColorConstants.primaryColor,
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 16,
+                    SizedBox(
+                      height: 1.8.h,
                     ),
                     SizedBox(
                       width: double.infinity,
                       child: TextButton.icon(
                         onPressed: () {},
-                        label: const Text(
-                          'Add to Cart',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                          ),
+                        label: const CustomTextWidget(
+                          StringConstants.detailFdBtnTxt,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 10.5,
                         ),
                         icon: const Icon(
                           Icons.shopping_cart_outlined,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
+import 'package:foodstore/Utils/Constants/string_constant.dart';
 import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -40,7 +41,7 @@ class _DashboardViewState extends State<DashboardView> {
                 child: SizedBox(
                   width: 60.w,
                   child: const CustomTextWidget(
-                    'Provide the best food for you',
+                    StringConstants.dashboardHeadTxt,
                     textAlign: TextAlign.start,
                     color: ColorConstants.whiteColor,
                     fontSize: 24,
@@ -63,7 +64,6 @@ class _DashboardViewState extends State<DashboardView> {
                     color: ColorConstants.whiteColor,
                   ),
                   iconSize: 24,
-                  elevation: 0,
                   dropdownColor: const Color.fromARGB(150, 0, 0, 0),
                   style: const TextStyle(
                       color: ColorConstants.whiteColor,
@@ -86,34 +86,34 @@ class _DashboardViewState extends State<DashboardView> {
                   ).toList(),
                 ),
               ),
-              const SizedBox(
-                height: 9,
+              SizedBox(
+                height: 1.h,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.location_on_outlined,
                     color: ColorConstants.whiteColor,
                     size: 24,
                   ),
                   SizedBox(
-                    width: 8,
+                    width: 2.w,
                   ),
-                  Text(
-                    'New York City',
-                    style: TextStyle(
-                        color: ColorConstants.whiteColor,
-                        fontWeight: FontWeight.w600),
+                  const CustomTextWidget(
+                    StringConstants.dashboardLocationTxt,
+                    color: ColorConstants.whiteColor,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 10.5,
                   ),
                 ],
               ),
             ],
           ),
-          leadingWidth: 152,
+          leadingWidth: 40.w,
           actions: [
             Container(
-              margin: const EdgeInsets.only(right: 16),
+              margin: EdgeInsets.only(right: 4.5.w),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 border: Border.all(color: ColorConstants.whiteColor, width: 1),
@@ -147,29 +147,26 @@ class _DashboardViewState extends State<DashboardView> {
               ),
             ),
           ],
-          toolbarHeight: 53,
+          toolbarHeight: 6.h,
         ),
       ),
       body: Column(
         children: [
           Container(
-            margin:
-                const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 16),
+            margin: EdgeInsets.only(
+                left: 5.8.w, right: 5.8.w, top: 2.8.h, bottom: 2.h),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Find by Category',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                CustomTextWidget(
+                  StringConstants.dashboardCategoryTxt1,
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w600,
                 ),
-                Text(
-                  'See All',
-                  style: TextStyle(
-                    color: ColorConstants.primaryColor,
-                  ),
+                CustomTextWidget(
+                  StringConstants.dashboardCategoryTxt2,
+                  color: ColorConstants.primaryColor,
+                  fontSize: 10.5,
                 ),
               ],
             ),
@@ -178,7 +175,7 @@ class _DashboardViewState extends State<DashboardView> {
             child: DefaultTabController(
               length: 4,
               child: Container(
-                margin: const EdgeInsets.only(left: 24, right: 24),
+                margin: EdgeInsets.only(left: 5.8.w, right: 5.8.w),
                 child: Column(
                   children: [
                     TabBar(
@@ -212,12 +209,10 @@ class _DashboardViewState extends State<DashboardView> {
                               const SizedBox(
                                 height: 5.5,
                               ),
-                              const Text(
-                                'Burger',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                              const CustomTextWidget(
+                                StringConstants.dashboardCategory1,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
                               ),
                             ],
                           ),
@@ -231,12 +226,10 @@ class _DashboardViewState extends State<DashboardView> {
                             const SizedBox(
                               height: 5.5,
                             ),
-                            const Text(
-                              'Taco',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
+                            const CustomTextWidget(
+                              StringConstants.dashboardCategory2,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
                             ),
                           ],
                         ),
@@ -248,12 +241,10 @@ class _DashboardViewState extends State<DashboardView> {
                             const SizedBox(
                               height: 5.5,
                             ),
-                            const Text(
-                              'Drink',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
+                            const CustomTextWidget(
+                              StringConstants.dashboardCategory3,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
                             ),
                           ],
                         ),
@@ -265,12 +256,10 @@ class _DashboardViewState extends State<DashboardView> {
                             const SizedBox(
                               height: 5.5,
                             ),
-                            const Text(
-                              'Pizza',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
+                            const CustomTextWidget(
+                              StringConstants.dashboardCategory4,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
                             ),
                           ],
                         ),
@@ -302,10 +291,10 @@ class _DashboardViewState extends State<DashboardView> {
 
 Widget content() {
   return GridView.builder(
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 2,
-      mainAxisSpacing: 16,
-      crossAxisSpacing: 22,
+      mainAxisSpacing: 1.8.h,
+      crossAxisSpacing: 5.w,
       childAspectRatio: 0.78,
     ),
     itemCount: items.length,
@@ -335,8 +324,8 @@ Widget content() {
                     ),
                   ),
                   Container(
-                    width: 30,
-                    height: 30,
+                    width: 7.2.w,
+                    height: 3.4.h,
                     margin: const EdgeInsets.only(right: 8, top: 8),
                     decoration: BoxDecoration(
                       color: ColorConstants.whiteColor,
@@ -355,58 +344,54 @@ Widget content() {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 8,
+              SizedBox(
+                height: 0.9.h,
               ),
-              Text(
+              CustomTextWidget(
                 item['title']!,
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: ColorConstants.blackColor),
+                fontSize: 11.5,
+                fontWeight: FontWeight.w500,
+                color: ColorConstants.blackColor,
               ),
               Row(
                 children: [
                   const Icon(Icons.star,
                       color: ColorConstants.primaryColor, size: 16),
-                  const SizedBox(
-                    width: 4,
+                  SizedBox(
+                    width: 1.1.w,
                   ),
-                  Text(
+                  CustomTextWidget(
                     item['rating']!,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    fontSize: 10.2,
+                    fontWeight: FontWeight.w500,
                   ),
-                  const SizedBox(
-                    width: 40,
+                  SizedBox(
+                    width: 12.w,
                   ),
                   const Icon(
                     Icons.location_on_outlined,
                     size: 16,
                     color: ColorConstants.primaryColor,
                   ),
-                  Text(
+                  CustomTextWidget(
                     item['distance']!,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    fontSize: 10.2,
+                    fontWeight: FontWeight.w500,
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 6,
+              SizedBox(
+                height: 0.6.h,
               ),
               Row(
                 children: [
                   Text(
                     item['price']!,
                     style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: ColorConstants.primaryColor),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: ColorConstants.primaryColor,
+                    ),
                   ),
                 ],
               )

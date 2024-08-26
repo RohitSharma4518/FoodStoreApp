@@ -40,5 +40,7 @@ class ColorConstants {
   static const appBarColor = Color(0xffEDEDED);
   static const navBarUnselectedColor = Color(0xffC2C2C2);
   static const cartPageBgColor = Color(0xffFDFDFD);
+  static const signputBtnColor = Color(0xffD6D6D6);
   static const cartPromoTxtColor = Color(0xffC2C2C2);
+  static const cartDetailColor = Color.fromARGB(24, 254, 140, 0);
 }

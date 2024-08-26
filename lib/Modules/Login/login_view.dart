@@ -4,8 +4,11 @@ import 'package:foodstore/Modules/Login/Widgets/custom_login_textfield.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
+import 'package:foodstore/Utils/Constants/string_constant.dart';
 import 'package:foodstore/Utils/Constants/widget_constant.dart';
+import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -26,46 +29,44 @@ class _LoginViewState extends State<LoginView> {
       backgroundColor: ColorConstants.whiteColor,
       body: SingleChildScrollView(
         child: Container(
-            margin: const EdgeInsets.only(
-                top: 76, bottom: 137, left: 24, right: 24),
+            margin: EdgeInsets.only(top: 8.3.h, left: 5.6.w, right: 5.6.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  width: 200.0,
-                  child: Text(
-                    'Login to your account',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w600,
-                    ),
+                SizedBox(
+                  width: 55.w,
+                  child: const CustomTextWidget(
+                    StringConstants.loginHeadTxt,
+                    fontSize: 25,
+                    textAlign: TextAlign.left,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(
-                  height: 8,
+                SizedBox(
+                  height: 0.9.h,
                 ),
-                const Text(
-                  'Please sign in to your account',
-                  style: TextStyle(
-                      color: ColorConstants.dividerColor,
-                      fontWeight: FontWeight.w500),
+                const CustomTextWidget(
+                  StringConstants.loginSubHeadTxt,
+                  color: ColorConstants.dividerColor,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 10.5,
                 ),
-                const SizedBox(
-                  height: 32,
+                SizedBox(
+                  height: 3.6.h,
                 ),
                 const Text('Email Address'),
-                const SizedBox(
-                  height: 8,
+                SizedBox(
+                  height: 0.9.h,
                 ),
                 const CustomTextField(
                   hint: 'Enter Email',
                 ),
-                const SizedBox(
-                  height: 14,
+                SizedBox(
+                  height: 1.6.h,
                 ),
                 const Text('Password'),
-                const SizedBox(
-                  height: 8,
+                SizedBox(
+                  height: 0.9.h,
                 ),
                 CustomPasswordTextField(
                   controller: _password,
@@ -83,8 +84,8 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   // validator: Validator.validatePassword,
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: 1.8.h,
                 ),
                 Align(
                   alignment: Alignment.centerRight,
@@ -92,17 +93,16 @@ class _LoginViewState extends State<LoginView> {
                     onPressed: () {
                       Get.toNamed(AppRoutes.forgotPswdScreen);
                     },
-                    child: const Text(
-                      'Forgot password?',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: ColorConstants.primaryColor),
+                    child: const CustomTextWidget(
+                      StringConstants.loginForgotpassTxt,
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w500,
+                      color: ColorConstants.primaryColor,
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 16,
+                SizedBox(
+                  height: 1.8.h,
                 ),
                 ThemeBtn(
                   btnName: 'Sign In',
@@ -111,60 +111,67 @@ class _LoginViewState extends State<LoginView> {
                     Get.toNamed(AppRoutes.navBarScreen);
                   },
                 ),
-                const SizedBox(height: 24),
+                SizedBox(
+                  height: 2.7.h,
+                ),
                 Row(
                   children: <Widget>[
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(right: 15.0),
-                        child: const Divider(
+                        child: Divider(
                           color: ColorConstants.dividerColor,
-                          height: 0.5,
+                          height: 0.04.h,
                         ),
                       ),
                     ),
-                    const Text(
-                      'Or sign in with',
-                      style: TextStyle(
-                          color: ColorConstants.dividerColor,
-                          fontWeight: FontWeight.w500),
+                    const CustomTextWidget(
+                      StringConstants.loginSigninOptionTxt,
+                      fontSize: 10.5,
+                      color: ColorConstants.dividerColor,
+                      fontWeight: FontWeight.w500,
                     ),
                     Expanded(
                       child: Container(
                         margin: const EdgeInsets.only(left: 15.0, right: 10.0),
-                        child: const Divider(
+                        child: Divider(
                           color: ColorConstants.dividerColor,
-                          height: 0.5,
+                          height: 0.04.h,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 25),
-                const Row(
+                SizedBox(
+                  height: 2.8.h,
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    AuthOption(imagePath: AssetConstant.authGoogleImg),
+                    const AuthOption(imagePath: AssetConstant.authGoogleImg),
                     SizedBox(
-                      width: 16,
+                      width: 3.9.w,
                     ),
-                    AuthOption(imagePath: AssetConstant.authFbImg),
+                    const AuthOption(imagePath: AssetConstant.authFbImg),
                     SizedBox(
-                      width: 16,
+                      width: 3.9.w,
                     ),
-                    AuthOption(imagePath: AssetConstant.authAppleImg),
+                    const AuthOption(imagePath: AssetConstant.authAppleImg),
                   ],
                 ),
-                const SizedBox(height: 32),
+                SizedBox(
+                  height: 3.6.h,
+                ),
                 Align(
                   alignment: Alignment.center,
                   child: RichText(
                     text: TextSpan(
                       text: 'Don\'t have an account? ',
                       style: const TextStyle(
-                          color: ColorConstants.blackColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500),
+                        color: ColorConstants.blackColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
                       children: [
                         TextSpan(
                           recognizer: TapGestureRecognizer()
@@ -173,8 +180,9 @@ class _LoginViewState extends State<LoginView> {
                             },
                           text: 'Register',
                           style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: ColorConstants.primaryColor),
+                            fontWeight: FontWeight.w600,
+                            color: ColorConstants.primaryColor,
+                          ),
                         ),
                       ],
                     ),
