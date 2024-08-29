@@ -11,19 +11,25 @@ import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class SignupView extends StatelessWidget {
+class SignupView extends StatefulWidget {
   const SignupView({super.key});
   @override
-  Widget build(BuildContext context) {
-    // SignupController signupController = Get.find();
+  State<StatefulWidget> createState() {
+    return _SignupViewState();
+  }
+}
 
-    final RegisterController _registerController =
-        Get.put(RegisterController());
+class _SignupViewState extends State<SignupView> {
+  final formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    SignupController signupController = Get.find();
 
     final TextEditingController _nameController = TextEditingController();
     final TextEditingController _emailController = TextEditingController();
     final TextEditingController _passwordController = TextEditingController();
-    final _formkey = GlobalKey<FormState>();
+
     return Scaffold(
       backgroundColor: ColorConstants.whiteColor,
       body: SingleChildScrollView(
@@ -59,7 +65,7 @@ class SignupView extends StatelessWidget {
                 ),
               ),
               Form(
-                key: _formkey,
+                key: formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -74,12 +80,17 @@ class SignupView extends StatelessWidget {
                     SizedBox(
                       height: 0.9.h,
                     ),
-                    // CustomTextField(
-                    //   hint: "Enter Email",
-                    //   controller: signupController.email,
-                    // ),
                     CustomTextField(
                       controller: _emailController,
+                      validator: (val) {
+                        if (val!.isEmpty ||
+                            !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}')
+                                .hasMatch(val)) {
+                          return 'Enter valid email';
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
                     SizedBox(
                       height: 1.4.h,
@@ -94,11 +105,15 @@ class SignupView extends StatelessWidget {
                     ),
                     CustomTextField(
                       controller: _nameController,
+                      validator: (val) {
+                        if (val!.isEmpty ||
+                            !RegExp(r'^[a-z A-Z 0-9]+$').hasMatch(val)) {
+                          return 'Enter valid name';
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
-                    // CustomTextField(
-                    //   hint: "User Name",
-                    //   controller: signupController.username,
-                    // ),
                     SizedBox(
                       height: 1.4.h,
                     ),
@@ -113,29 +128,13 @@ class SignupView extends StatelessWidget {
                     Obx(
                       () => CustomTextField(
                         controller: _passwordController,
-                        obscureText:
-                            _registerController.isPasswordObscured.value,
+                        obscureText: signupController.isPasswordObscured.value,
                         obscuringCharacter: '*',
                         showPasswordIcon: true,
                         onIconPressed:
-                            _registerController.togglePasswordVisibility,
+                            signupController.togglePasswordVisibility,
                       ),
                     ),
-                    // CustomPasswordTextField(
-                    //   hint: "Password",
-                    //   secureText: signupController.passwordVisible.value,
-                    //   controller: signupController.password,
-                    //   suffixIcon: IconButton(
-                    //     padding: const EdgeInsets.only(right: 20.0),
-                    //     onPressed: () {
-                    //       signupController.passwordVisible.value =
-                    //           !signupController.passwordVisible.value;
-                    //     },
-                    //     icon: Icon(signupController.passwordVisible.value
-                    //         ? Icons.visibility_off_outlined
-                    //         : Icons.remove_red_eye_outlined),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -145,17 +144,18 @@ class SignupView extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 2.2.h,
-                    width: 5.w,
-                    child: Checkbox.adaptive(
-                      value: true,
-                      // signupController.agreeToTerms.value,
-                      onChanged: (bool? val) {
-                        // signupController.agreeToTerms.value =
-                        //     !signupController.agreeToTerms.value;
-                      },
-                      activeColor: ColorConstants.primaryColor,
+                  Obx(
+                    () => SizedBox(
+                      height: 2.2.h,
+                      width: 5.w,
+                      child: Checkbox.adaptive(
+                        value: signupController.agreeToTerms.value,
+                        onChanged: (bool? val) {
+                          signupController.agreeToTerms.value =
+                              !signupController.agreeToTerms.value;
+                        },
+                        activeColor: ColorConstants.primaryColor,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -201,21 +201,17 @@ class SignupView extends StatelessWidget {
               ThemeBtn(
                 btnName: 'Register',
                 btnAction: () {
-                  print("SignIn pressed");
-                  _registerController.registerUser(
-                    _nameController.text.trim(),
-                    _emailController.text.trim(),
-                    _passwordController.text.trim(),
-                  );
+                  if (formKey.currentState!.validate() &&
+                      signupController.agreeToTerms.value == true) {
+                    print("SignIn pressed");
+                  }
+
+                  // signupController.registerUser(
+                  //   _nameController.text.trim(),
+                  //   _emailController.text.trim(),
+                  //   _passwordController.text.trim(),
+                  // );
                 },
-                // btnAction: () {
-                //   print("Pressed");
-                //   if (_formkey.currentState!.validate()) {
-                //     signupController.registerUser(
-                //         signupController.email.text.trim(),
-                //         signupController.password.text.trim());
-                //   }
-                // },
               ),
               SizedBox(
                 height: 2.8.h,

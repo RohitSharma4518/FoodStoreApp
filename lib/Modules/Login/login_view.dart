@@ -59,7 +59,11 @@ class _LoginViewState extends State<LoginView> {
                 SizedBox(
                   height: 3.6.h,
                 ),
-                const Text('Email Address'),
+                const CustomTextWidget(
+                  StringConstants.registerEmailTxt,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 10.3,
+                ),
                 SizedBox(
                   height: 0.9.h,
                 ),
@@ -70,7 +74,11 @@ class _LoginViewState extends State<LoginView> {
                 SizedBox(
                   height: 1.6.h,
                 ),
-                const Text('Password'),
+                const CustomTextWidget(
+                  StringConstants.registerPassTxt,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 10.3,
+                ),
                 SizedBox(
                   height: 0.9.h,
                 ),

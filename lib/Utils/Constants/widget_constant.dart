@@ -385,6 +385,8 @@ class CustomTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final VoidCallback? onIconPressed;
   final bool showPasswordIcon;
+  final bool? nonEditableField;
+  final String? Function(String? val)? validator;
 
   const CustomTextField({
     super.key,
@@ -400,6 +402,8 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.onChanged,
     this.onIconPressed,
+    this.validator,
+    this.nonEditableField,
     this.showPasswordIcon = false,
   });
 
@@ -467,8 +471,10 @@ class CustomTextField extends StatelessWidget {
           }
         },
         child: AbsorbPointer(
-          child: TextField(
+          child: TextFormField(
             controller: controller,
+            validator: validator,
+            enabled: nonEditableField,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
@@ -532,9 +538,11 @@ class CustomTextField extends StatelessWidget {
         ),
       );
     } else {
-      return TextField(
+      return TextFormField(
         keyboardType: keyboardType,
+        validator: validator,
         obscureText: obscureText,
+        enabled: nonEditableField,
         obscuringCharacter: obscuringCharacter,
         cursorRadius: const Radius.circular(8),
         decoration: InputDecoration(

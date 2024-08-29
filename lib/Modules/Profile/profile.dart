@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:foodstore/Modules/Profile/Controller/profile_controller.dart';
 import 'package:foodstore/Routes/app_routes.dart';
@@ -7,6 +9,7 @@ import 'package:foodstore/Utils/Constants/string_constant.dart';
 import 'package:foodstore/Utils/Constants/widget_constant.dart';
 import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 
 class ProfileView extends StatefulWidget {
@@ -84,8 +87,63 @@ class _ProfileViewState extends State<ProfileView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Align(
+                  //   child: Image.asset(AssetConstant.profileAccntImg),
+                  // ),
                   Align(
-                    child: Image.asset(AssetConstant.profileAccntImg),
+                    child: GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) => SizedBox(
+                            height: 150,
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  leading: const Icon(Icons.photo_library),
+                                  title: const Text("Gallery"),
+                                  onTap: () {
+                                    _profilecontroller
+                                        .pickImage(ImageSource.gallery);
+                                    Get.back();
+                                  },
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.camera_alt),
+                                  title: const Text("Camera"),
+                                  onTap: () {
+                                    _profilecontroller
+                                        .pickImage(ImageSource.camera);
+                                    Get.back();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundImage: _profilecontroller
+                                .profileImage.value.isNotEmpty
+                            ? (_profilecontroller.profileImage.value
+                                        .startsWith('http')
+                                    ? NetworkImage(
+                                        _profilecontroller.profileImage.value)
+                                    : FileImage(File(
+                                        _profilecontroller.profileImage.value)))
+                                as ImageProvider
+                            : const AssetImage(AssetConstant.profileAccntImg),
+                        child: const Align(
+                          alignment: Alignment.bottomRight,
+                          child: Icon(
+                            Icons.camera_alt,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(
                     height: 3.4.h,
@@ -105,9 +163,6 @@ class _ProfileViewState extends State<ProfileView> {
                       _profilecontroller.updateProfileData('name', value);
                     },
                   ),
-                  // const CustomTextField(
-                  //   hint: StringConstants.profileLabel1Txt,
-                  // ),
                   SizedBox(
                     height: 1.4.h,
                   ),
@@ -224,6 +279,11 @@ class _ProfileViewState extends State<ProfileView> {
                     hintText: StringConstants.profilePhoneTxt,
                     isPhoneNumber: true,
                     controller: _phoneController,
+                    validator: (val) {
+                      if (val!.length > 10) {
+                        return "Invalid Number";
+                      }
+                    },
                     onChanged: (value) {
                       _profilecontroller.updateProfileData('phone', value);
                     },
@@ -248,6 +308,7 @@ class _ProfileViewState extends State<ProfileView> {
                   // ),
                   CustomTextField(
                     controller: _emailController,
+                    nonEditableField: false,
                   ),
                   SizedBox(
                     height: 4.h,
@@ -256,9 +317,13 @@ class _ProfileViewState extends State<ProfileView> {
                     btnName: 'Save',
                     btnAction: () async {
                       try {
-                        await _profilecontroller.updateProfileData(
+                        _profilecontroller.updateProfileData(
                             'dob', _dobController.text);
-                        await _profilecontroller.updateProfileData(
+                        _profilecontroller.updateProfileData(
+                            'name', _nameController.text);
+                        _profilecontroller.updateProfileData(
+                            'gender', _profilecontroller.gender.value);
+                        _profilecontroller.updateProfileData(
                             'phone', _phoneController.text);
                         _showSuccessDialog();
                       } catch (e) {

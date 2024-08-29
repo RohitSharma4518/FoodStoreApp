@@ -207,27 +207,29 @@ class _DashboardViewState extends State<DashboardView> {
                               fontWeight: FontWeight.w500,
                               color: ColorConstants.whiteColor),
                           dividerColor: Colors.transparent,
-                          tabs: controller.tabBarItems.map((item) {
-                            return SizedBox(
-                              height: 7.4.h,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.network(
-                                    item.img,
-                                  ),
-                                  const SizedBox(
-                                    height: 5.5,
-                                  ),
-                                  CustomTextWidget(
-                                    item.title,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ],
-                              ),
-                            );
-                          }).toList(),
+                          tabs: controller.tabBarItems.map(
+                            (item) {
+                              return SizedBox(
+                                height: 7.4.h,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.network(
+                                      item.img,
+                                    ),
+                                    const SizedBox(
+                                      height: 5.5,
+                                    ),
+                                    CustomTextWidget(
+                                      item.title,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ).toList(),
                           onTap: (value) {
                             final categoryId = controller.tabBarItems[value].id;
                             controller.fetchFoodItemsByCategory(categoryId);

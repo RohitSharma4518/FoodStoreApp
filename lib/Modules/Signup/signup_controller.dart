@@ -1,31 +1,13 @@
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-
-// class SignupController extends GetxController {
-//   static SignupController get instance => Get.find();
-
-//   var passwordVisible = true.obs;
-
-//   var agreeToTerms = false.obs;
-
-//   // Textfield controller to data from textfield
-//   final email = TextEditingController();
-//   final username = TextEditingController();
-//   final password = TextEditingController();
-
-//   // call the function from the design and rest will be taken care here
-//   // void registerUser(String email, String password) {
-//   //   SignupRepository.instance.createUserWithEmailAndPassword(email, password);
-//   // }
-// }
-
+import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:foodstore/Routes/app_routes.dart';
-import 'package:get/get.dart';
 
-class RegisterController extends GetxController {
+class SignupController extends GetxController {
+  static SignupController get instance => Get.find();
+
   var isPasswordObscured = true.obs;
+  var agreeToTerms = false.obs;
 
   void togglePasswordVisibility() {
     isPasswordObscured.value = !isPasswordObscured.value;
@@ -42,7 +24,6 @@ class RegisterController extends GetxController {
         password: password,
       );
 
-      // Store user details in Firestore
       await _firestore.collection('users').doc(userCredential.user?.uid).set({
         'name': name,
         'email': email,
@@ -51,7 +32,6 @@ class RegisterController extends GetxController {
         'phone': '',
       });
 
-      // Update the user's profile
       await userCredential.user?.updateDisplayName(name);
 
       Get.offNamed(AppRoutes.navBarScreen);

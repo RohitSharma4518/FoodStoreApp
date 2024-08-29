@@ -1,4 +1,5 @@
 import 'package:foodstore/Modules/Cart/cart_controller.dart';
+import 'package:foodstore/Modules/Signup/signup_controller.dart';
 import 'package:get/get.dart';
 import '../Modules/Login/login_controller.dart';
 import 'network_connectivity_controller.dart';
@@ -10,6 +11,7 @@ class GlobalControllerBindings extends Bindings {
     Get.put(
       LoginController(),
     );
+    Get.put(SignupController());
     Get.put(
       NetworkConnectivityController(),
     );

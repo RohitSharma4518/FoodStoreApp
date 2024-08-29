@@ -127,13 +127,36 @@ class _SearchViewState extends State<SearchView> {
                 } else {
                   return ListView.builder(
                     itemCount: searchControllers.searchItem.length,
+                    padding: EdgeInsets.only(top: 1.h),
                     itemBuilder: (context, index) {
                       final item = searchControllers.searchItem[index];
-                      return ListTile(
-                        title: Text(item.name),
-                        leading: Image.network(item.img),
-                        subtitle: Text('Price : \$ ${item.price}'),
-                        onTap: () => _onItemTap(item),
+                      return Card(
+                        color: ColorConstants.appBarColor,
+                        child: ListTile(
+                          title: CustomTextWidget(
+                            item.name,
+                            fontSize: 13.5,
+                            fontWeight: FontWeight.w500,
+                            textAlign: TextAlign.left,
+                          ),
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.0),
+                            child: Image.network(
+                              item.img,
+                              fit: BoxFit.fill,
+                              width: 20.w,
+                              height: 8.h,
+                            ),
+                          ),
+                          subtitle: CustomTextWidget(
+                            'Price : \$ ${item.price}',
+                            textAlign: TextAlign.left,
+                            fontSize: 10.5,
+                            color: ColorConstants.primaryColor,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          onTap: () => _onItemTap(item),
+                        ),
                       );
                     },
                   );
