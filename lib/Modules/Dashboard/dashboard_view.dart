@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodstore/Modules/Dashboard/Model/dashboard_data_model.dart';
+import 'package:foodstore/Modules/Dashboard/Model/dashboard_model.dart';
 import 'package:foodstore/Modules/Dashboard/dashboard_controller.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
@@ -183,7 +183,7 @@ class _DashboardViewState extends State<DashboardView> {
                   );
                 }
                 return DefaultTabController(
-                  length: 4,
+                  length: controller.tabBarItems.length,
                   child: Container(
                     margin: EdgeInsets.only(left: 5.8.w, right: 5.8.w),
                     child: Column(
@@ -209,7 +209,7 @@ class _DashboardViewState extends State<DashboardView> {
                           dividerColor: Colors.transparent,
                           tabs: controller.tabBarItems.map((item) {
                             return SizedBox(
-                              height: 65,
+                              height: 7.4.h,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -220,7 +220,6 @@ class _DashboardViewState extends State<DashboardView> {
                                     height: 5.5,
                                   ),
                                   CustomTextWidget(
-                                    // StringConstants.dashboardCategory1,
                                     item.title,
                                     fontSize: 10,
                                     fontWeight: FontWeight.w500,
@@ -229,92 +228,25 @@ class _DashboardViewState extends State<DashboardView> {
                               ),
                             );
                           }).toList(),
-                          // tabs: [
-                          //   SizedBox(
-                          //     height: 65,
-                          //     child: Column(
-                          //       mainAxisAlignment: MainAxisAlignment.center,
-                          //       children: [
-                          //         Image.asset(
-                          //           AssetConstant.burgerImg,
-                          //         ),
-                          //         const SizedBox(
-                          //           height: 5.5,
-                          //         ),
-                          //         const CustomTextWidget(
-                          //           StringConstants.dashboardCategory1,
-                          //           fontSize: 10,
-                          //           fontWeight: FontWeight.w500,
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          //   Column(
-                          //     mainAxisAlignment: MainAxisAlignment.center,
-                          //     children: [
-                          //       Image.asset(
-                          //         AssetConstant.tacoImg,
-                          //       ),
-                          //       const SizedBox(
-                          //         height: 5.5,
-                          //       ),
-                          //       const CustomTextWidget(
-                          //         StringConstants.dashboardCategory2,
-                          //         fontSize: 10,
-                          //         fontWeight: FontWeight.w500,
-                          //       ),
-                          //     ],
-                          //   ),
-                          //   Column(
-                          //     children: [
-                          //       Image.asset(
-                          //         AssetConstant.drinkImg,
-                          //       ),
-                          //       const SizedBox(
-                          //         height: 5.5,
-                          //       ),
-                          //       const CustomTextWidget(
-                          //         StringConstants.dashboardCategory3,
-                          //         fontSize: 10,
-                          //         fontWeight: FontWeight.w500,
-                          //       ),
-                          //     ],
-                          //   ),
-                          //   Column(
-                          //     children: [
-                          //       Image.asset(
-                          //         AssetConstant.pizzaImg,
-                          //       ),
-                          //       const SizedBox(
-                          //         height: 5.5,
-                          //       ),
-                          //       const CustomTextWidget(
-                          //         StringConstants.dashboardCategory4,
-                          //         fontSize: 10,
-                          //         fontWeight: FontWeight.w500,
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ],
+                          onTap: (value) {
+                            final categoryId = controller.tabBarItems[value].id;
+                            controller.fetchFoodItemsByCategory(categoryId);
+                          },
                         ),
                         Expanded(
                           child: Container(
                             margin: const EdgeInsets.only(top: 16, bottom: 16),
                             child: TabBarView(
-                              children: [
-                                Center(
-                                    child: listFoodItems(
-                                        controller.foodItemsBurger)),
-                                Center(
-                                    child: listFoodItems(
-                                        controller.foodItemsTaco)),
-                                Center(
-                                    child: listFoodItems(
-                                        controller.foodItemsPizza)),
-                                Center(
-                                    child: listFoodItems(
-                                        controller.foodItemsDrink)),
-                              ],
+                              children: controller.tabBarItems.map(
+                                (item) {
+                                  return Center(
+                                    child: listFoodItems(controller.foodItems
+                                        .where((foodItem) =>
+                                            foodItem.category_id == item.id)
+                                        .toList()),
+                                  );
+                                },
+                              ).toList(),
                             ),
                           ),
                         ),
@@ -333,10 +265,10 @@ class _DashboardViewState extends State<DashboardView> {
 
 Widget listFoodItems(List<FoodItem> foodItems) {
   // final AboutController aboutController = Get.put(AboutController());
-
+  final HomeController controller = Get.put(HomeController());
   return Obx(
     () {
-      if (foodItems.isEmpty) {
+      if (controller.foodItems.isEmpty) {
         return const Center(
           child: Text(
             "No Items Available",
@@ -351,13 +283,12 @@ Widget listFoodItems(List<FoodItem> foodItems) {
           crossAxisSpacing: 5.w,
           childAspectRatio: 0.78,
         ),
-        itemCount: items.length,
+        itemCount: controller.foodItems.length,
         itemBuilder: (context, index) {
-          final item = foodItems[index];
+          final item = controller.foodItems[index];
           return GestureDetector(
             onTap: () {
-              // aboutController.setSelectedFoodItem(item);
-              Get.toNamed(AppRoutes.menuDetailScreen);
+              Get.toNamed(AppRoutes.menuDetailScreen, arguments: item);
             },
             child: Container(
               padding: const EdgeInsetsDirectional.all(8),
@@ -371,14 +302,14 @@ Widget listFoodItems(List<FoodItem> foodItems) {
                   Stack(
                     alignment: Alignment.topRight,
                     children: [
-                      Image(
-                        height: 106,
-                        fit: BoxFit.contain,
-                        width: double.infinity,
-                        image: NetworkImage(item.img),
-                        // image: AssetImage(
-                        //   item['photo']!,
-                        // ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image(
+                          height: 11.4.h,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          image: NetworkImage(item.img),
+                        ),
                       ),
                       Container(
                         width: 7.2.w,
@@ -459,48 +390,3 @@ Widget listFoodItems(List<FoodItem> foodItems) {
     },
   );
 }
-
-List<Map<String, String>> items = [
-  {
-    'photo': AssetConstant.food1Img,
-    'title': 'Ordinary Burgers',
-    'rating': '4.9',
-    'distance': '190m',
-    'price': '\$ 17,230'
-  },
-  {
-    'photo': AssetConstant.food2Img,
-    'title': 'Burger With Meat',
-    'rating': '4.9',
-    'distance': '190m',
-    'price': '\$ 17,230'
-  },
-  {
-    'photo': AssetConstant.food3Img,
-    'title': 'Burger Veggi',
-    'rating': '4.9',
-    'distance': '190m',
-    'price': '\$ 17,230'
-  },
-  {
-    'photo': AssetConstant.food4Img,
-    'title': 'Burger jambo',
-    'rating': '4.9',
-    'distance': '190m',
-    'price': '\$ 17,230'
-  },
-  {
-    'photo': AssetConstant.food1Img,
-    'title': 'Ordinary Burgers',
-    'rating': '4.9',
-    'distance': '190m',
-    'price': '\$ 17,230'
-  },
-  {
-    'photo': AssetConstant.food3Img,
-    'title': 'Burger With Meat',
-    'rating': '4.9',
-    'distance': '190m',
-    'price': '\$ 17,230'
-  },
-];

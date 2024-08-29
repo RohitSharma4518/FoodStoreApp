@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:foodstore/Modules/Dashboard/Model/dashboard_model.dart';
+import 'package:foodstore/Modules/Search/search_controller.dart';
+import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
 import 'package:foodstore/Utils/Constants/string_constant.dart';
 import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
+import 'package:get/get.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:sizer/sizer.dart';
 
@@ -14,6 +18,14 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
+  // final AboutController aboutController = Get.find<AboutController>();
+  final SearchControllers searchControllers = Get.put(SearchControllers());
+
+  void _onItemTap(FoodItem item) {
+    // aboutController.setSelectedFoodItem(item);
+    Get.toNamed(AppRoutes.menuDetailScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +55,7 @@ class _SearchViewState extends State<SearchView> {
               height: 2.1.h,
             ),
             TextField(
+              controller: searchControllers.searchControllers,
               decoration: InputDecoration(
                 prefixIcon:
                     const Icon(Icons.search, color: ColorConstants.blackColor),
@@ -76,31 +89,56 @@ class _SearchViewState extends State<SearchView> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Image.asset(AssetConstant.searchPageImg),
-            SizedBox(
-              height: 2.h,
-            ),
-            const CustomTextWidget(
-              StringConstants.searchNoItemTxt,
-              color: ColorConstants.blackColor,
-              fontSize: 11.5,
-              fontWeight: FontWeight.w600,
-            ),
-            SizedBox(
-              height: 1.h,
-            ),
-            const SizedBox(
-              width: 282,
-              child: CustomTextWidget(
-                textAlign: TextAlign.center,
-                StringConstants.searchNoItemTypeErrorTxt,
-                color: ColorConstants.dividerColor,
-                fontSize: 10.5,
-                fontWeight: FontWeight.w500,
-              ),
+            Expanded(
+              child: Obx(() {
+                print(
+                    'Filtered Items : ${searchControllers.searchItem.length}');
+                if (searchControllers.searchControllers.text.isEmpty) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Image.asset(AssetConstant.searchPageImg),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      const CustomTextWidget(
+                        StringConstants.searchNoItemTxt,
+                        color: ColorConstants.blackColor,
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      SizedBox(
+                        height: 1.h,
+                      ),
+                      const SizedBox(
+                        width: 282,
+                        child: CustomTextWidget(
+                          textAlign: TextAlign.center,
+                          StringConstants.searchNoItemTypeErrorTxt,
+                          color: ColorConstants.dividerColor,
+                          fontSize: 10.5,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return ListView.builder(
+                    itemCount: searchControllers.searchItem.length,
+                    itemBuilder: (context, index) {
+                      final item = searchControllers.searchItem[index];
+                      return ListTile(
+                        title: Text(item.name),
+                        leading: Image.network(item.img),
+                        subtitle: Text('Price : \$ ${item.price}'),
+                        onTap: () => _onItemTap(item),
+                      );
+                    },
+                  );
+                }
+              }),
             ),
           ],
         ),

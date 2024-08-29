@@ -371,9 +371,6 @@ class _CustomSwitchState extends State<CustomSwitch>
   }
 }
 
-// import 'package:flutter/material.dart';
-// import 'package:foodstore/Utils/Constants/color_constant.dart';
-
 class CustomTextField extends StatelessWidget {
   final String? hintText;
   final TextInputType keyboardType;
