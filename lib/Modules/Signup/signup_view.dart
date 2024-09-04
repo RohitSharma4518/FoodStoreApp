@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:foodstore/Modules/Login/Widgets/custom_login_textfield.dart';
 import 'package:foodstore/Modules/Signup/signup_controller.dart';
@@ -7,6 +6,7 @@ import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
 import 'package:foodstore/Utils/Constants/string_constant.dart';
 import 'package:foodstore/Utils/Constants/widget_constant.dart';
+import 'package:foodstore/Utils/Widgets/custom_richtext_widget.dart';
 import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -26,9 +26,9 @@ class _SignupViewState extends State<SignupView> {
   Widget build(BuildContext context) {
     SignupController signupController = Get.find();
 
-    final TextEditingController _nameController = TextEditingController();
-    final TextEditingController _emailController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
+    final TextEditingController nameController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
       backgroundColor: ColorConstants.whiteColor,
@@ -81,12 +81,14 @@ class _SignupViewState extends State<SignupView> {
                       height: 0.9.h,
                     ),
                     CustomTextField(
-                      controller: _emailController,
+                      controller: emailController,
+                      hintText: StringConstants.loginHintEmailTxt,
+                      hintTextColor: ColorConstants.dividerColor,
                       validator: (val) {
                         if (val!.isEmpty ||
                             !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}')
                                 .hasMatch(val)) {
-                          return 'Enter valid email';
+                          return StringConstants.registerEmailErrorTxt;
                         } else {
                           return null;
                         }
@@ -104,11 +106,13 @@ class _SignupViewState extends State<SignupView> {
                       height: 0.9.h,
                     ),
                     CustomTextField(
-                      controller: _nameController,
+                      controller: nameController,
+                      hintText: StringConstants.registerHintUserNameTxt,
+                      hintTextColor: ColorConstants.dividerColor,
                       validator: (val) {
                         if (val!.isEmpty ||
                             !RegExp(r'^[a-z A-Z 0-9]+$').hasMatch(val)) {
-                          return 'Enter valid name';
+                          return StringConstants.registerNameErrorTxt;
                         } else {
                           return null;
                         }
@@ -127,13 +131,23 @@ class _SignupViewState extends State<SignupView> {
                     ),
                     Obx(
                       () => CustomTextField(
-                        controller: _passwordController,
-                        obscureText: signupController.isPasswordObscured.value,
-                        obscuringCharacter: '*',
-                        showPasswordIcon: true,
-                        onIconPressed:
-                            signupController.togglePasswordVisibility,
-                      ),
+                          controller: passwordController,
+                          hintText: StringConstants.loginHintPasswordTxt,
+                          hintTextColor: ColorConstants.dividerColor,
+                          obscureText:
+                              signupController.isPasswordObscured.value,
+                          showPasswordIcon: true,
+                          onIconPressed:
+                              signupController.togglePasswordVisibility,
+                          validator: (val) {
+                            if (val!.isEmpty ||
+                                !RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$')
+                                    .hasMatch(val)) {
+                              return StringConstants.registerPasswordErrorTxt;
+                            } else {
+                              return null;
+                            }
+                          }),
                     ),
                   ],
                 ),
@@ -163,34 +177,11 @@ class _SignupViewState extends State<SignupView> {
                   ),
                   SizedBox(
                     width: 65.w,
-                    child: RichText(
-                      text: const TextSpan(
-                        text: 'I Agree with ',
-                        style: TextStyle(
-                            color: ColorConstants.blackColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500),
-                        children: [
-                          TextSpan(
-                            text: 'Terms of Service ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: ColorConstants.primaryColor),
-                          ),
-                          TextSpan(
-                            text: 'and ',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: ColorConstants.blackColor),
-                          ),
-                          TextSpan(
-                            text: 'Privacy Policy',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: ColorConstants.primaryColor),
-                          ),
-                        ],
-                      ),
+                    child: const CustomRichText(
+                      text1: StringConstants.registerTermsTxt1,
+                      text2: StringConstants.registerTermsTxt2,
+                      text3: StringConstants.registerTermsTxt3,
+                      text4: StringConstants.registerTermsTxt4,
                     ),
                   ),
                 ],
@@ -199,18 +190,16 @@ class _SignupViewState extends State<SignupView> {
                 height: 2.8.h,
               ),
               ThemeBtn(
-                btnName: 'Register',
+                btnName: StringConstants.registerBtnTxt,
                 btnAction: () {
                   if (formKey.currentState!.validate() &&
                       signupController.agreeToTerms.value == true) {
-                    print("SignIn pressed");
+                    signupController.registerUser(
+                      nameController.text.trim(),
+                      emailController.text.trim(),
+                      passwordController.text.trim(),
+                    );
                   }
-
-                  // signupController.registerUser(
-                  //   _nameController.text.trim(),
-                  //   _emailController.text.trim(),
-                  //   _passwordController.text.trim(),
-                  // );
                 },
               ),
               SizedBox(
@@ -221,9 +210,9 @@ class _SignupViewState extends State<SignupView> {
                   Expanded(
                     child: Container(
                       margin: const EdgeInsets.only(right: 15.0),
-                      child: const Divider(
+                      child: Divider(
                         color: ColorConstants.dividerColor,
-                        height: 0.5,
+                        height: 0.5.h,
                       ),
                     ),
                   ),
@@ -236,9 +225,9 @@ class _SignupViewState extends State<SignupView> {
                   Expanded(
                     child: Container(
                       margin: const EdgeInsets.only(left: 15.0, right: 10.0),
-                      child: const Divider(
+                      child: Divider(
                         color: ColorConstants.dividerColor,
-                        height: 0.5,
+                        height: 0.5.h,
                       ),
                     ),
                   ),
@@ -264,26 +253,12 @@ class _SignupViewState extends State<SignupView> {
               SizedBox(height: 3.7.h),
               Align(
                 alignment: Alignment.center,
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Don\'t have an account? ',
-                    style: const TextStyle(
-                        color: ColorConstants.blackColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500),
-                    children: [
-                      TextSpan(
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Get.toNamed(AppRoutes.loginScreen);
-                          },
-                        text: 'Sign In',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: ColorConstants.primaryColor),
-                      ),
-                    ],
-                  ),
+                child: CustomRichText(
+                  text1: StringConstants.registerBottomTxt1,
+                  tappableText: StringConstants.registerBottomTxt2,
+                  onTap: () {
+                    Get.toNamed(AppRoutes.loginScreen);
+                  },
                 ),
               ),
             ],

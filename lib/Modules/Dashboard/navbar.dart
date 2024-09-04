@@ -30,7 +30,7 @@ class _NavBarState extends State<NavBar> {
               ? const CartView()
               : _selectedIndex == 2
                   ? const ForgotpswdView()
-                  : const ProfileView(),
+                  : ProfileView(),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.transparent,
         items: const <BottomNavigationBarItem>[

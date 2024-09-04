@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodstore/Modules/Dashboard/Model/dashboard_model.dart';
+import 'package:foodstore/Modules/MenuDetail/menu_detail_controller.dart';
 import 'package:foodstore/Modules/Search/search_controller.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
@@ -18,11 +19,12 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
-  // final AboutController aboutController = Get.find<AboutController>();
+  final MenuDetailController menuDetailController =
+      Get.find<MenuDetailController>();
   final SearchControllers searchControllers = Get.put(SearchControllers());
 
   void _onItemTap(FoodItem item) {
-    // aboutController.setSelectedFoodItem(item);
+    menuDetailController.setSelectedFoodItem(item);
     Get.toNamed(AppRoutes.menuDetailScreen);
   }
 

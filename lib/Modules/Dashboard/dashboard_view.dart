@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodstore/Modules/Dashboard/Model/dashboard_model.dart';
 import 'package:foodstore/Modules/Dashboard/dashboard_controller.dart';
+import 'package:foodstore/Modules/MenuDetail/menu_detail_controller.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
@@ -158,18 +159,21 @@ class _DashboardViewState extends State<DashboardView> {
           Container(
             margin: EdgeInsets.only(
                 left: 5.8.w, right: 5.8.w, top: 2.8.h, bottom: 2.h),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomTextWidget(
+                const CustomTextWidget(
                   StringConstants.dashboardCategoryTxt1,
                   fontSize: 11.5,
                   fontWeight: FontWeight.w600,
                 ),
-                CustomTextWidget(
-                  StringConstants.dashboardCategoryTxt2,
-                  color: ColorConstants.primaryColor,
-                  fontSize: 10.5,
+                GestureDetector(
+                  onTap: () => Get.toNamed(AppRoutes.seeAllCategoryScreen),
+                  child: const CustomTextWidget(
+                    StringConstants.dashboardCategoryTxt2,
+                    color: ColorConstants.primaryColor,
+                    fontSize: 10.5,
+                  ),
                 ),
               ],
             ),
@@ -266,7 +270,7 @@ class _DashboardViewState extends State<DashboardView> {
 }
 
 Widget listFoodItems(List<FoodItem> foodItems) {
-  // final AboutController aboutController = Get.put(AboutController());
+  final MenuDetailController menuDetailController = Get.find();
   final HomeController controller = Get.put(HomeController());
   return Obx(
     () {
@@ -290,6 +294,7 @@ Widget listFoodItems(List<FoodItem> foodItems) {
           final item = controller.foodItems[index];
           return GestureDetector(
             onTap: () {
+              menuDetailController.setSelectedFoodItem(item);
               Get.toNamed(AppRoutes.menuDetailScreen, arguments: item);
             },
             child: Container(

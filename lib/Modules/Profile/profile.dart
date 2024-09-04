@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:foodstore/Modules/Profile/Controller/profile_controller.dart';
 import 'package:foodstore/Routes/app_routes.dart';
@@ -12,14 +11,9 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 
-class ProfileView extends StatefulWidget {
-  const ProfileView({super.key});
+class ProfileView extends StatelessWidget {
+  ProfileView({super.key});
 
-  @override
-  State<ProfileView> createState() => _ProfileViewState();
-}
-
-class _ProfileViewState extends State<ProfileView> {
   final ProfileController _profilecontroller = Get.put(ProfileController());
   final TextEditingController _dobController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -87,9 +81,6 @@ class _ProfileViewState extends State<ProfileView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Align(
-                  //   child: Image.asset(AssetConstant.profileAccntImg),
-                  // ),
                   Align(
                     child: GestureDetector(
                       onTap: () {
@@ -101,7 +92,7 @@ class _ProfileViewState extends State<ProfileView> {
                               children: [
                                 ListTile(
                                   leading: const Icon(Icons.photo_library),
-                                  title: const Text("Gallery"),
+                                  title: const CustomTextWidget("Gallery"),
                                   onTap: () {
                                     _profilecontroller
                                         .pickImage(ImageSource.gallery);
@@ -110,7 +101,7 @@ class _ProfileViewState extends State<ProfileView> {
                                 ),
                                 ListTile(
                                   leading: const Icon(Icons.camera_alt),
-                                  title: const Text("Camera"),
+                                  title: const CustomTextWidget("Camera"),
                                   onTap: () {
                                     _profilecontroller
                                         .pickImage(ImageSource.camera);
@@ -160,9 +151,16 @@ class _ProfileViewState extends State<ProfileView> {
                   CustomTextField(
                     controller: _nameController,
                     onChanged: (value) {
-                      _profilecontroller.updateProfileData('name', value);
+                      _profilecontroller.name.value = value;
                     },
                   ),
+                  Obx(() {
+                    return CustomTextWidget(
+                      _profilecontroller.nameError.value,
+                      color: ColorConstants.redColor,
+                      fontSize: 10,
+                    );
+                  }),
                   SizedBox(
                     height: 1.4.h,
                   ),
@@ -179,16 +177,19 @@ class _ProfileViewState extends State<ProfileView> {
                     height: 1.h,
                   ),
                   CustomTextField(
-                    // hintText: StringConstants.labelDOB,
                     isDatePicker: true,
                     controller: _dobController,
                     onChanged: (value) {
-                      _profilecontroller.updateProfileData('dob', value);
+                      _profilecontroller.dob.value = value;
                     },
                   ),
-                  // const CustomTextField(
-                  //   hint: StringConstants.profileLabel2Txt,
-                  // ),
+                  Obx(() {
+                    return CustomTextWidget(
+                      _profilecontroller.dobError.value,
+                      fontSize: 10,
+                      color: ColorConstants.redColor,
+                    );
+                  }),
                   SizedBox(
                     height: 1.4.h,
                   ),
@@ -204,44 +205,6 @@ class _ProfileViewState extends State<ProfileView> {
                   SizedBox(
                     height: 1.h,
                   ),
-                  // InputDecorator(
-                  //   decoration: const InputDecoration(
-                  //     contentPadding: EdgeInsets.all(13),
-                  //     border: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.all(
-                  //         Radius.circular(8.0),
-                  //       ),
-                  //     ),
-                  //   ),
-                  //   child: DropdownButtonHideUnderline(
-                  //     child: DropdownButton<String>(
-                  //       value: gender,
-                  //       isDense: true,
-                  //       isExpanded: true,
-                  //       icon: const Icon(
-                  //         Icons.keyboard_arrow_down_outlined,
-                  //         size: 28,
-                  //       ),
-                  //       items: const [
-                  //         DropdownMenuItem(
-                  //           value: "",
-                  //           child: Text("Select Gender"),
-                  //         ),
-                  //         DropdownMenuItem(
-                  //           value: "Male",
-                  //           child: Text("Male"),
-                  //         ),
-                  //         DropdownMenuItem(
-                  //           value: "Female",
-                  //           child: Text("Female"),
-                  //         ),
-                  //       ],
-                  //       onChanged: (newValue) {
-                  //         setState(() {});
-                  //       },
-                  //     ),
-                  //   ),
-                  // ),
                   CustomTextField(
                     hintText: StringConstants.profileDropdwnTxt1,
                     dropdownItems: const [
@@ -253,9 +216,16 @@ class _ProfileViewState extends State<ProfileView> {
                     controller: TextEditingController(
                         text: _profilecontroller.gender.value),
                     onChanged: (value) {
-                      _profilecontroller.updateProfileData('gender', value);
+                      _profilecontroller.gender.value = value;
                     },
                   ),
+                  Obx(() {
+                    return CustomTextWidget(
+                      _profilecontroller.genderError.value,
+                      color: ColorConstants.redColor,
+                      fontSize: 10,
+                    );
+                  }),
                   SizedBox(
                     height: 1.4.h,
                   ),
@@ -271,23 +241,21 @@ class _ProfileViewState extends State<ProfileView> {
                   SizedBox(
                     height: 1.h,
                   ),
-                  // const CustomTextField(
-                  //   hint: StringConstants.profileLabel4Txt,
-                  //   inputType: TextInputType.number,
-                  // ),
                   CustomTextField(
                     hintText: StringConstants.profilePhoneTxt,
-                    isPhoneNumber: true,
                     controller: _phoneController,
-                    validator: (val) {
-                      if (val!.length > 10) {
-                        return "Invalid Number";
-                      }
-                    },
+                    keyboardType: TextInputType.phone,
                     onChanged: (value) {
-                      _profilecontroller.updateProfileData('phone', value);
+                      _profilecontroller.phone.value = value;
                     },
                   ),
+                  Obx(() {
+                    return CustomTextWidget(
+                      _profilecontroller.phoneError.value,
+                      color: ColorConstants.redColor,
+                      fontSize: 10,
+                    );
+                  }),
                   SizedBox(
                     height: 1.4.h,
                   ),
@@ -303,31 +271,31 @@ class _ProfileViewState extends State<ProfileView> {
                   SizedBox(
                     height: 1.h,
                   ),
-                  // const CustomTextField(
-                  //   hint: StringConstants.profileLabel5Txt,
-                  // ),
                   CustomTextField(
                     controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
                     nonEditableField: false,
                   ),
                   SizedBox(
                     height: 4.h,
                   ),
                   ThemeBtn(
-                    btnName: 'Save',
+                    btnName: StringConstants.profileSaveBtnTxt,
                     btnAction: () async {
-                      try {
-                        _profilecontroller.updateProfileData(
-                            'dob', _dobController.text);
-                        _profilecontroller.updateProfileData(
-                            'name', _nameController.text);
-                        _profilecontroller.updateProfileData(
-                            'gender', _profilecontroller.gender.value);
-                        _profilecontroller.updateProfileData(
-                            'phone', _phoneController.text);
-                        _showSuccessDialog();
-                      } catch (e) {
-                        print("Error: $e");
+                      if (_profilecontroller.validateProfile()) {
+                        try {
+                          _profilecontroller.updateProfileData(
+                              'dob', _dobController.text);
+                          _profilecontroller.updateProfileData(
+                              'name', _nameController.text);
+                          _profilecontroller.updateProfileData(
+                              'gender', _profilecontroller.gender.value);
+                          _profilecontroller.updateProfileData(
+                              'phone', _phoneController.text);
+                          _showSuccessDialog();
+                        } catch (e) {
+                          print("Error: $e");
+                        }
                       }
                     },
                   ),
@@ -352,4 +320,17 @@ void _showSuccessDialog() {
     confirmTextColor: ColorConstants.whiteColor,
     buttonColor: ColorConstants.primaryColor,
   );
+
+  void showErrorDialog(String message) {
+    Get.defaultDialog(
+      title: 'Error',
+      middleText: message,
+      onConfirm: () {
+        Get.back(); // Close the dialog
+      },
+      textConfirm: 'OK',
+      confirmTextColor: ColorConstants.whiteColor,
+      buttonColor: ColorConstants.primaryColor,
+    );
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:foodstore/Modules/Login/login_controller.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
 import 'package:foodstore/Utils/Constants/string_constant.dart';
@@ -26,6 +27,8 @@ class _SettingViewState extends State<SettingView> {
     "Hindi",
     "Marathi",
   ];
+
+  final LoginController _loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -368,13 +371,11 @@ class _SettingViewState extends State<SettingView> {
                   width: 30.w,
                   child: ThemeBtn(
                     btnName: 'Log Out',
-                    btnAction:
-                        // Get.toNamed(AppRoutes.loginScreen);
-                        () async {
+                    btnAction: () async {
                       try {
                         await FirebaseAuth.instance.signOut();
                         Get.back();
-                        // Navigator.of(context).pop();
+                        _loginController.SignedIn();
                         Get.offAllNamed(AppRoutes.loginScreen);
                       } catch (e) {
                         print('Logout error: $e');

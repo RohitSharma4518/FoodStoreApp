@@ -1,3 +1,5 @@
+import 'package:foodstore/Utils/Constants/color_constant.dart';
+import 'package:foodstore/Utils/firebase_custom_error_message.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,9 +36,20 @@ class SignupController extends GetxController {
 
       await userCredential.user?.updateDisplayName(name);
 
-      Get.offNamed(AppRoutes.navBarScreen);
+      Get.offNamed(AppRoutes.loginScreen);
+      Get.snackbar('Success', 'Account created successfully!',
+          snackPosition: SnackPosition.BOTTOM);
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      if (e is FirebaseAuthException) {
+        String errorMessage = getFirebaseErrorMessage(e.code);
+        Get.snackbar('Error', errorMessage,
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: ColorConstants.cartDetailColor);
+      } else {
+        Get.snackbar("Error", "An Unexpected Error Occurred",
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: ColorConstants.cartDetailColor);
+      }
     }
   }
 }

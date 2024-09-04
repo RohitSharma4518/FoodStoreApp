@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:foodstore/Routes/app_routes.dart';
 import 'package:foodstore/Utils/Constants/asset_constant.dart';
 import 'package:foodstore/Utils/Constants/color_constant.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,9 +23,14 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  void navNewScreen() {
+  navNewScreen() {
     Timer(const Duration(seconds: 3), () {
-      Get.toNamed(AppRoutes.loginScreen);
+      var isSignedIn = GetStorage().read('isSignedIn') ?? false;
+      if (isSignedIn) {
+        Get.offNamed(AppRoutes.navBarScreen);
+      } else {
+        Get.offNamed(AppRoutes.loginScreen);
+      }
     });
   }
 

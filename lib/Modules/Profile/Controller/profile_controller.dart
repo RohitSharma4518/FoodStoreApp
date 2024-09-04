@@ -17,6 +17,12 @@ class ProfileController extends GetxController {
   var phone = ''.obs;
   var profileImage = ''.obs;
 
+  var nameError = ''.obs;
+  var dobError = ''.obs;
+  var genderError = ''.obs;
+  var phoneError = ''.obs;
+  var imageError = ''.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -41,10 +47,9 @@ class ProfileController extends GetxController {
     User? user = _auth.currentUser;
     if (user != null) {
       try {
-        await _firestore
-            .collection('users')
-            .doc(user.uid)
-            .update({field: value});
+        await _firestore.collection('users').doc(user.uid).update({
+          field: value,
+        });
         fetchUserData();
       } catch (e) {
         print("Error updating profile: $e");
@@ -59,6 +64,8 @@ class ProfileController extends GetxController {
     if (pickedFile != null) {
       File imageFile = File(pickedFile.path);
       await uploadProfileImage(imageFile);
+    } else {
+      imageError.value = 'Profile Image is required';
     }
   }
 
@@ -82,5 +89,49 @@ class ProfileController extends GetxController {
         print("Error uploading image: $e");
       }
     }
+  }
+
+  bool validateProfile() {
+    bool isValid = true;
+
+    if (name.value.isEmpty) {
+      nameError.value = 'Full name is required';
+      isValid = false;
+    } else {
+      nameError.value = '';
+    }
+
+    if (dob.value.isEmpty) {
+      dobError.value = 'Date of Birth is required';
+      isValid = false;
+    } else {
+      dobError.value = '';
+    }
+
+    if (gender.value.isEmpty) {
+      genderError.value = 'Gender is required';
+      isValid = false;
+    } else {
+      genderError.value = '';
+    }
+
+    if (phone.value.isEmpty) {
+      phoneError.value = 'Phone Number is required';
+      isValid = false;
+    } else if (!RegExp(r'^\d{10}$').hasMatch(phone.value)) {
+      phoneError.value = 'Enter a valid phone number';
+      isValid = false;
+    } else {
+      phoneError.value = '';
+    }
+
+    if (profileImage.value.isEmpty) {
+      imageError.value = 'Profile image is required';
+      isValid = false;
+    } else {
+      imageError.value = '';
+    }
+
+    return isValid;
   }
 }

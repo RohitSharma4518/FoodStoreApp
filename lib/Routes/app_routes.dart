@@ -13,4 +13,8 @@ class AppRoutes {
   static const searchScreen = '/search_screen';
   static const settingScreen = '/setting_screen';
   static const emptyCartScreen = '/empty_cart_screen';
+  static const filledCartScreen = '/filled_cart_screen';
+  static const seeAllCategoryScreen = '/see_all_category_screen';
+  static const seeAllCategoryProductsScreen =
+      '/see_all_category_products_screen';
 }

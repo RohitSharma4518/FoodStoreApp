@@ -48,6 +48,11 @@ class StringConstants {
   static const String loginSubHeadTxt = 'Please sign in to your account';
   static const String loginForgotpassTxt = 'Forgot password?';
   static const String loginSigninOptionTxt = 'Or sign in with';
+  static const String loginNewAcntHintTxt1 = 'Don\'t have an account? ';
+  static const String loginNewAcntHintTxt2 = 'Register';
+  static const String loginBtnTxt = 'Sign In';
+  static const String loginHintEmailTxt = 'Enter Email';
+  static const String loginHintPasswordTxt = 'Enter Password';
 
   ///
   /// Register Page Text
@@ -55,8 +60,22 @@ class StringConstants {
   static const String registerEmailTxt = 'Email Address';
   static const String registerUNameTxt = 'User Name';
   static const String registerPassTxt = 'Password';
+  static const String registerBtnTxt = 'Register';
+  static const String registerHintUserNameTxt = 'Enter User Name';
+  static const String registerTermsTxt1 = 'I Agree with ';
+  static const String registerTermsTxt2 = 'Terms of Service ';
+  static const String registerTermsTxt3 = 'and ';
+  static const String registerHintEmailTxt = 'and ';
+  static const String registerBottomTxt1 = 'A;ready Registered? ';
+  static const String registerBottomTxt2 = 'Sign In';
+  static const String registerTermsTxt4 = 'Privacy Policy';
   static const String registerSubHeadTxt =
       'Create an account to start looking for the food you like';
+
+  /// Register Page Error
+  static const String registerEmailErrorTxt = 'Enter valid email';
+  static const String registerNameErrorTxt = 'Enter valid name';
+  static const String registerPasswordErrorTxt = 'Enter Valid Password';
 
   ///
   /// Search Page Texts
@@ -74,6 +93,13 @@ class StringConstants {
   static const String profileDropdwnTxt2 = 'Female';
   static const String profileDropdwnTxt3 = 'Others';
   static const String profilePhoneTxt = 'Mobile Number';
+  static const String profileSaveBtnTxt = 'Save';
+
+  ///
+  /// See all products by category
+  static const String seeAllCatTxt = 'Categories';
+  static const String seeCatProductsTxt = 'Food Item';
+  static const String seeCatProductsAddCartTxt = 'Add to Cart';
 
   // Empty Cart Text
   static const String emptyCartAppBarText = 'My Cart';

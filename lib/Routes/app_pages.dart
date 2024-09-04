@@ -1,3 +1,4 @@
+import 'package:foodstore/Modules/Cart/cart_view.dart';
 import 'package:foodstore/Modules/Cart/emptycart_view.dart';
 import 'package:foodstore/Modules/Dashboard/dashboard_view.dart';
 import 'package:foodstore/Modules/Dashboard/navbar.dart';
@@ -6,6 +7,7 @@ import 'package:foodstore/Modules/ForgotPassword/resetpswd_view.dart';
 import 'package:foodstore/Modules/Login/login_view.dart';
 import 'package:foodstore/Modules/MenuDetail/menu_detail_view.dart';
 import 'package:foodstore/Modules/Search/search_view.dart';
+import 'package:foodstore/Modules/SeeAllSection/Seeall.dart';
 import 'package:foodstore/Modules/Setting/setting_view.dart';
 import 'package:foodstore/Modules/Signup/signup_view.dart';
 import 'package:get/get.dart';
@@ -25,7 +27,7 @@ class AppPages {
         transition: transition),
     GetPage(
         name: AppRoutes.loginScreen,
-        page: () => const LoginView(),
+        page: () => LoginView(),
         transition: transition),
     GetPage(
         name: AppRoutes.signupScreen,
@@ -62,6 +64,14 @@ class AppPages {
     GetPage(
         name: AppRoutes.settingScreen,
         page: () => const SettingView(),
+        transition: transition),
+    GetPage(
+        name: AppRoutes.filledCartScreen,
+        page: () => const CartView(),
+        transition: transition),
+    GetPage(
+        name: AppRoutes.seeAllCategoryScreen,
+        page: () => SeeAllCategoriesPage(),
         transition: transition),
   ];
 }
