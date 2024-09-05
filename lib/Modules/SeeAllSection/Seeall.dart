@@ -8,7 +8,8 @@ import 'package:foodstore/Utils/Constants/color_constant.dart';
 import 'package:sizer/sizer.dart';
 
 class SeeAllCategoriesPage extends StatelessWidget {
-  final HomeController homeController = Get.find<HomeController>();
+  final DashboardController dashboardController =
+      Get.find<DashboardController>();
   SeeAllCategoriesPage({super.key});
 
   @override
@@ -45,7 +46,7 @@ class SeeAllCategoriesPage extends StatelessWidget {
       ),
       body: Obx(
         () {
-          if (homeController.tabBarItems.isEmpty) {
+          if (dashboardController.tabBarItems.isEmpty) {
             return const Center(child: CircularProgressIndicator());
           }
 
@@ -57,9 +58,9 @@ class SeeAllCategoriesPage extends StatelessWidget {
               crossAxisSpacing: 4.w,
               childAspectRatio: 0.8,
             ),
-            itemCount: homeController.tabBarItems.length,
+            itemCount: dashboardController.tabBarItems.length,
             itemBuilder: (context, index) {
-              final category = homeController.tabBarItems[index];
+              final category = dashboardController.tabBarItems[index];
               return GestureDetector(
                 onTap: () {
                   Get.to(() => CategoryProductsPage(categoryId: category.id));

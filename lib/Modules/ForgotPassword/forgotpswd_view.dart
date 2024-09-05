@@ -16,6 +16,8 @@ class ForgotpswdView extends StatefulWidget {
   }
 }
 
+GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
 class _ForgotpswdViewState extends State<ForgotpswdView> {
   @override
   Widget build(BuildContext context) {
@@ -53,15 +55,32 @@ class _ForgotpswdViewState extends State<ForgotpswdView> {
               SizedBox(
                 height: 0.9.h,
               ),
-              // const CustomTextField(
-              //   hint: "Enter Email",
-              // ),
+              Form(
+                key: formkey,
+                child: CustomTextField(
+                  hintText: 'Enter Email',
+                  hintTextColor: ColorConstants.dividerColor,
+                  validator: (val) {
+                    if (val!.isEmpty ||
+                        !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}')
+                            .hasMatch(val)) {
+                      return StringConstants.registerEmailErrorTxt;
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+              ),
               SizedBox(
                 height: 18.h,
               ),
               ThemeBtn(
                 btnName: StringConstants.forgotpassBtnTxt,
-                btnAction: () => Get.toNamed(AppRoutes.resetPswdScreen),
+                btnAction: () {
+                  if (formkey.currentState!.validate()) {
+                    Get.toNamed(AppRoutes.resetPswdScreen);
+                  }
+                },
               ),
             ],
           ),

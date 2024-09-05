@@ -17,6 +17,8 @@ class ResetpswdView extends StatefulWidget {
   }
 }
 
+GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
 class _ResetpswdViewState extends State<ResetpswdView> {
   bool passwordVisible = true;
   bool passwordVisible2 = true;
@@ -87,9 +89,10 @@ class _ResetpswdViewState extends State<ResetpswdView> {
               SizedBox(
                 height: 0.9.h,
               ),
-              // const CustomTextField(
-              //   hint: 'New Password',
-              // ),
+              const CustomTextField(
+                hintText: 'Password',
+                hintTextColor: ColorConstants.dividerColor,
+              ),
               SizedBox(
                 height: 2.8.h,
               ),

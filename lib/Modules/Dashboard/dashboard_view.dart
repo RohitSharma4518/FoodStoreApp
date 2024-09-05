@@ -10,8 +10,6 @@ import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-const List<String> list = <String>['Your Location', 'Two', 'Three', 'Four'];
-
 class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
   @override
@@ -21,8 +19,7 @@ class DashboardView extends StatefulWidget {
 }
 
 class _DashboardViewState extends State<DashboardView> {
-  String dropdownValue = 'Your Location';
-  final HomeController controller = Get.put(HomeController());
+  final DashboardController controller = Get.put(DashboardController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,36 +55,43 @@ class _DashboardViewState extends State<DashboardView> {
           leading: Column(
             children: [
               SizedBox(
-                height: 2.2.h,
+                height: 2.3.h,
                 width: 28.w,
-                child: DropdownButton(
-                  value: dropdownValue,
-                  underline: const SizedBox(),
-                  icon: const Icon(
-                    Icons.keyboard_arrow_down_outlined,
-                    color: ColorConstants.whiteColor,
-                  ),
-                  iconSize: 24,
-                  dropdownColor: const Color.fromARGB(150, 0, 0, 0),
-                  style: const TextStyle(
+                child: Obx(
+                  () => DropdownButton<String>(
+                    value: controller.dropdownValue.value.isNotEmpty
+                        ? controller.dropdownValue.value
+                        : null,
+                    underline: const SizedBox(),
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down_outlined,
                       color: ColorConstants.whiteColor,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w400),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownValue = newValue!;
-                    });
-                  },
-                  items: <String>['Your Location', 'Two', 'Free', 'Four']
-                      .map<DropdownMenuItem<String>>(
-                    (String value) {
-                      return DropdownMenuItem<String>(
-                        alignment: Alignment.bottomLeft,
-                        value: value,
-                        child: Text(value),
-                      );
+                    ),
+                    iconSize: 6.w,
+                    elevation: 0,
+                    dropdownColor: const Color.fromARGB(150, 0, 0, 0),
+                    style: const TextStyle(
+                        color: ColorConstants.whiteColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400),
+                    items: <String>[
+                      StringConstants.dashboardLocationTxt1,
+                      StringConstants.dashboardLocationTxt2,
+                      StringConstants.dashboardLocationTxt3,
+                      StringConstants.dashboardLocationTxt4,
+                    ].map<DropdownMenuItem<String>>(
+                      (String value) {
+                        return DropdownMenuItem<String>(
+                          alignment: Alignment.bottomLeft,
+                          value: value,
+                          child: Text(value),
+                        );
+                      },
+                    ).toList(),
+                    onChanged: (String? newValue) {
+                      controller.setDropdownValue(newValue!);
                     },
-                  ).toList(),
+                  ),
                 ),
               ),
               SizedBox(
@@ -104,12 +108,12 @@ class _DashboardViewState extends State<DashboardView> {
                   SizedBox(
                     width: 2.w,
                   ),
-                  const CustomTextWidget(
-                    StringConstants.dashboardLocationTxt,
-                    color: ColorConstants.whiteColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 10.5,
-                  ),
+                  Obx(() => CustomTextWidget(
+                        controller.dropdownValue.value,
+                        color: ColorConstants.whiteColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 10.5,
+                      )),
                 ],
               ),
             ],
@@ -188,6 +192,7 @@ class _DashboardViewState extends State<DashboardView> {
                 }
                 return DefaultTabController(
                   length: controller.tabBarItems.length,
+                  initialIndex: controller.selectedTabIndex.value,
                   child: Container(
                     margin: EdgeInsets.only(left: 5.8.w, right: 5.8.w),
                     child: Column(
@@ -235,8 +240,9 @@ class _DashboardViewState extends State<DashboardView> {
                             },
                           ).toList(),
                           onTap: (value) {
-                            final categoryId = controller.tabBarItems[value].id;
-                            controller.fetchFoodItemsByCategory(categoryId);
+                            controller.setSelectedTabIndex(value);
+                            controller.fetchFoodItemsByCategory(
+                                controller.tabBarItems[value].id);
                           },
                         ),
                         Expanded(
@@ -271,7 +277,7 @@ class _DashboardViewState extends State<DashboardView> {
 
 Widget listFoodItems(List<FoodItem> foodItems) {
   final MenuDetailController menuDetailController = Get.find();
-  final HomeController controller = Get.put(HomeController());
+  final DashboardController controller = Get.put(DashboardController());
   return Obx(
     () {
       if (controller.foodItems.isEmpty) {

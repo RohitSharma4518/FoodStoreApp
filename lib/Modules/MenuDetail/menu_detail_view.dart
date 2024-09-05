@@ -6,8 +6,6 @@ import 'package:foodstore/Utils/Widgets/custom_text_widget.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-const List<String> list = <String>['Your Location', 'Two', 'Three', 'Four'];
-
 class MenuDetailView extends StatefulWidget {
   const MenuDetailView({super.key});
   @override
@@ -18,8 +16,6 @@ class MenuDetailView extends StatefulWidget {
 
 int _activePage = 0;
 
-late List<Widget> _pages;
-
 class _MenuDetailViewState extends State<MenuDetailView> {
   @override
   void initState() {
@@ -27,6 +23,7 @@ class _MenuDetailViewState extends State<MenuDetailView> {
     _activePage = 0;
   }
 
+  late List<Widget> _pages;
   @override
   Widget build(BuildContext context) {
     final MenuDetailController menuDetailController =

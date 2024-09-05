@@ -11,13 +11,14 @@ import 'package:foodstore/Routes/app_routes.dart'; // Import route constants
 
 class CategoryProductsPage extends StatelessWidget {
   final String categoryId;
-  final HomeController homeController = Get.find<HomeController>();
+  final DashboardController dashboardController =
+      Get.find<DashboardController>();
 
   CategoryProductsPage({super.key, required this.categoryId});
 
   @override
   Widget build(BuildContext context) {
-    homeController.fetchFoodItemsByCategory(categoryId);
+    dashboardController.fetchFoodItemsByCategory(categoryId);
 
     return Scaffold(
       appBar: AppBar(
@@ -51,7 +52,7 @@ class CategoryProductsPage extends StatelessWidget {
       ),
       body: Obx(
         () {
-          if (homeController.foodItems.isEmpty) {
+          if (dashboardController.foodItems.isEmpty) {
             return const Center(child: CircularProgressIndicator());
           }
 
@@ -63,9 +64,9 @@ class CategoryProductsPage extends StatelessWidget {
               crossAxisSpacing: 4.w,
               childAspectRatio: 0.71,
             ),
-            itemCount: homeController.foodItems.length,
+            itemCount: dashboardController.foodItems.length,
             itemBuilder: (context, index) {
-              final item = homeController.foodItems[index];
+              final item = dashboardController.foodItems[index];
               return Container(
                 padding: const EdgeInsetsDirectional.only(
                     top: 8, start: 12, bottom: 8, end: 12),

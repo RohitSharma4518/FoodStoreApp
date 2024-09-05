@@ -2,11 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:foodstore/Modules/Dashboard/Model/dashboard_model.dart';
 import 'package:get/get.dart';
 
-class HomeController extends GetxController {
+class DashboardController extends GetxController {
   var dropdownValue = 'Your Location'.obs;
 
   void setDropdownValue(String newValue) {
     dropdownValue.value = newValue;
+  }
+
+  var selectedTabIndex = 0.obs;
+
+  void setSelectedTabIndex(int index) {
+    selectedTabIndex.value = index;
   }
 
   var foodItems = <FoodItem>[].obs;

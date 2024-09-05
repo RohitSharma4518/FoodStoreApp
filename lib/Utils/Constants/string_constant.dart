@@ -66,7 +66,7 @@ class StringConstants {
   static const String registerTermsTxt2 = 'Terms of Service ';
   static const String registerTermsTxt3 = 'and ';
   static const String registerHintEmailTxt = 'and ';
-  static const String registerBottomTxt1 = 'A;ready Registered? ';
+  static const String registerBottomTxt1 = 'Already Registered? ';
   static const String registerBottomTxt2 = 'Sign In';
   static const String registerTermsTxt4 = 'Privacy Policy';
   static const String registerSubHeadTxt =
@@ -171,7 +171,11 @@ class StringConstants {
   ///
   /// Dashboard Page Text
   static const String dashboardHeadTxt = 'Provide the best food for you';
-  static const String dashboardLocationTxt = 'New York City';
+  // static const String dashboardLocationTxt = 'New York City';
+  static const String dashboardLocationTxt1 = 'Your Location';
+  static const String dashboardLocationTxt2 = 'London';
+  static const String dashboardLocationTxt3 = 'Paris';
+  static const String dashboardLocationTxt4 = 'San Francisco';
   static const String dashboardCategoryTxt1 = 'Find by Category';
   static const String dashboardCategoryTxt2 = 'See All';
   static const String dashboardCategory1 = 'Burger';
